@@ -7,7 +7,7 @@
 $ git clone https://github.com/DeanYQ/TeamFunMobile.git
 ```
 
-2. copy `node_modules` 
+2. copy `node_modules`  
 Once create default react native project, a `node_modules` will be created. Please copy the folder to the repository directory so that speed up the **npm** dependency installation.
 
 3. install nodejs modules
