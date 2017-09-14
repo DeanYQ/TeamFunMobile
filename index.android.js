@@ -9,55 +9,16 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View,
-  Image
+  View
 } from 'react-native';
-
-//import login from 'login';
-
-import MainPage from './components/android/mainPage.js';
-
-//var Login = require('./login'); 
+var Main = require('./Main');
 
 export default class MobileApplication extends Component {
   render() {
     return (
-      //<View style={styles.container}>
-      //  <Text style={styles.welcome}>
-      //    Welcome to React test!
-      //  </Text>
-      //  <Text style={styles.instructions}>
-      //    To get started, edit index.android.js
-      //  </Text>
-      //  <Text style={styles.instructions}>
-      //    Double tap R on your keyboard to reload,{'\n'}
-      //    Shake or press menu button for dev menu
-      //  </Text>
-      //  <Login />
-      //  <Image source={require('./img/saber.png')}></Image>
-      //</View>
-      <MainPage />
+      <Main />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('MobileApplication', () => MobileApplication);
