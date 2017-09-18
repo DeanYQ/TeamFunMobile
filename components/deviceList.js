@@ -1,60 +1,73 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Button,
-  Alert,
-  FlatList
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    Button,
+    Animated,
+    Alert,
+    RefreshControl,
+    FlatList
 } from 'react-native';
 
 import ImageButton from './imageButton'
-  
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 class DeviceList extends Component {
     constructor(props) {
         super(props);
-        var ds = this.props.itemsource;
         this.state = {
-            ds: this.props.itemsource,
+            refreshing: false,
         };
     }
 
-    _renderItem = ({item}) => (
+    _onRefresh() {
+        this.setState({ refreshing: true });
+        fetchData().then(() => {
+            this.setState({ refreshing: false });
+        });
+    }
 
-            //<Text style={{color: 'black', backgroundColor:'#fff', alignSelf:'center'}}>
-            //    {rowData}
-            //</Text>
-            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
-                <Image source={require('../img/item.png')} style={{ height: 36, width: 36 }}>
-                </Image>
-                <View style={{ paddingLeft: 20 }}>
-                    <Text style={{ backgroundColor: '#fff' }}>
-                        {item.Catalog}
-                    </Text>
-                    <Text style={{ backgroundColor: '#fff' }}>
-                        {item.DeviceType}
-                    </Text>
-                </View>
+    fetchData() { }
+    _renderItem = ({ item }) => (
+        <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
+            <Image source={require('../img/item.png')} style={{ height: 50, width: 50, padding: 20 }}>
+            </Image>
+            <View style={{ paddingLeft: 20 }}>
+                <Text style={{ backgroundColor: '#fff' }}>
+                    {item.Catalog}
+                </Text>
+                <Text style={{ backgroundColor: '#fff' }}>
+                    {item.DeviceType}
+                </Text>
             </View>
-        );
+        </View>
+    );
 
     render() {
         return (
             <View style={{ justifyContent: 'flex-start' }}>
-                <FlatList
+                <AnimatedFlatList
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh.bind(this)}
+                        />}
+
                     data={this.props.itemsource}
                     renderItem={this._renderItem}
-                >
-                </FlatList>
-            </View>
+                    refreshing={false}
+                />
+            </View >
         );
     }
 }
 
 var styles = StyleSheet.create({
-    header:{
+    header: {
         height: 80,
         backgroundColor: 'black'
     },
