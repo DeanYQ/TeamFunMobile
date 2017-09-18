@@ -7,12 +7,12 @@ import {
   Image,
   Button,
   Alert,
-  FlatList,
-  ListView
+  FlatList
 } from 'react-native';
 
 import ImageButton from './imageButton'
 import DeviceList from './deviceList'
+//import DeviceFlatList from './deviceFlatList'
 
 const onButtonPress = () => {
     //Alert.alert('Button has been pressed!')
@@ -51,9 +51,11 @@ class DeviceTab extends Component {
                     </ImageButton>  
                 </View>
                 <View>
-                    <DeviceList itemSource={['a','b','c']}>
+                    <DeviceList itemsource={[{ Catalog: "450L-B    ", DeviceType: 156, ProductType: 1, Rev: "1         ", Description: null }, 
+                    { Catalog: "t1        ", DeviceType: 999, ProductType: 999, Rev: "1         ", Description: null }]} />
+                    {/* <DeviceList itemSource={['a','b','c']}>
 
-                    </DeviceList>
+                    </DeviceList> */}
                 </View>
             </View>
         );

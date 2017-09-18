@@ -7,7 +7,7 @@ import {
   Image,
   Button,
   Alert,
-  ListView
+  FlatList
 } from 'react-native';
 
 import ImageButton from './imageButton'
@@ -15,47 +15,39 @@ import ImageButton from './imageButton'
 class DeviceList extends Component {
     constructor(props) {
         super(props);
-
-         ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 != r2
-         });
-
+        var ds = this.props.itemsource;
         this.state = {
-            dataSource: ds.cloneWithRows(['A','B','C']),
-            //refresh: (data)=>{
-            //    dataSource = data;
-            //}
-        }
+            ds: this.props.itemsource,
+        };
     }
 
-    renderRow(rowData){
-        return(
+    _renderItem = ({item}) => (
+
             //<Text style={{color: 'black', backgroundColor:'#fff', alignSelf:'center'}}>
             //    {rowData}
             //</Text>
-            <View style={{flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1}}>
-                <Image source={require('../img/item.png')} style={{height:36, width:36}}>
+            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
+                <Image source={require('../img/item.png')} style={{ height: 36, width: 36 }}>
                 </Image>
-                <View style={{paddingLeft: 20}}>
-                    <Text style={{backgroundColor: '#fff'}}>
-                        {rowData}
+                <View style={{ paddingLeft: 20 }}>
+                    <Text style={{ backgroundColor: '#fff' }}>
+                        {item.Catalog}
                     </Text>
-                    <Text style={{backgroundColor: '#fff'}}>
-                        {rowData}
+                    <Text style={{ backgroundColor: '#fff' }}>
+                        {item.DeviceType}
                     </Text>
                 </View>
             </View>
         );
-    }
 
-    render(){
+    render() {
         return (
-            <View style={{justifyContent: 'flex-start'}}>
-                <ListView 
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow.bind(this)}           
+            <View style={{ justifyContent: 'flex-start' }}>
+                <FlatList
+                    data={this.props.itemsource}
+                    renderItem={this._renderItem}
                 >
-                </ListView>
+                </FlatList>
             </View>
         );
     }
