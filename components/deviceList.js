@@ -12,9 +12,10 @@ import {
     FlatList
 } from 'react-native';
 
-import ImageButton from './imageButton'
-
+import ImageButton from './imageButton';
+ var images = require('./images');
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 
 class DeviceList extends Component {
     constructor(props) {
@@ -32,16 +33,18 @@ class DeviceList extends Component {
     }
 
     fetchData() { }
+
     _renderItem = ({ item }) => (
+        
         <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
-            <Image source={require('../img/item.png')} style={{ height: 50, width: 50, padding: 20 }}>
+            <Image source={images[item.Catalog]} style={{ height: 50, width: 50, padding: 20 }}>
             </Image>
             <View style={{ paddingLeft: 20 }}>
                 <Text style={{ backgroundColor: '#fff' }}>
                     {item.Catalog}
                 </Text>
                 <Text style={{ backgroundColor: '#fff' }}>
-                    {item.DeviceType}
+                    {item.IP}
                 </Text>
             </View>
         </View>
