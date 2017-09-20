@@ -1,5 +1,6 @@
 import React ,{Component} from 'react';
 import {
+    Alert,
     View,
     Text,
     StyleSheet,
@@ -73,12 +74,12 @@ class Login extends Component{
         authService.login({
             username:this.state.username,
             password:this.state.password
-        }, (results) =>{
-            this.setState(Object.assign({
-                showProgress: false
-            }, results));
-
-            if (results.success && this.props.onLogin){
+        }, (response) =>{
+            this.setState({showProgress: false});
+			if (response.error && !response.error.success){
+                Alert.alert('Error', response.error_description);
+			}
+            if (!response.error && this.props.onLogin){
                 this.props.onLogin();
             }
         });
