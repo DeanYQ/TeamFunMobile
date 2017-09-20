@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Button,
-  Alert,
-  FlatList
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    Button,
+    Alert,
+    FlatList
 } from 'react-native';
 
 import ImageButton from './imageButton'
@@ -19,42 +19,68 @@ const onButtonPress = () => {
     //React.findDOMNode(this.refs.Te).focus();
     //Alert.alert(document.activeElement.tagName);
 };
-  
+
 class DeviceTab extends Component {
     constructor(props) {
         super(props);
+        var ds = [
+            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
+            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
+            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
+        ];
         this.state = {
-            message: 't'
+            message: 't',
+            ds
         }
     }
 
-    onAddBtnPress(){
+    onAddBtnPress() {
         Alert.alert(this.state.message);
     }
 
-    render(){
+    // componentDidMount() {
+    //     this.requestDevices();
+    // }
+
+    requestDevices() {
+        var newData = [
+            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
+            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
+            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
+            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
+            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
+            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
+            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
+            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
+            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
+            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
+        ];
+        return newData;
+        // this.setState({
+        //     ds: this.state.ds.cloneWithRows(newData)
+        // });
+    }
+
+    render() {
         return (
             <View>
-                <View style={{height:60,backgroundColor:'#333333', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-                    <Text style={{color:'white',fontSize:18,width:200, backgroundColor:'transparent',marginLeft:5}}>Mobile Detector</Text>
-                    <ImageButton 
-                        style={{backgroundColor:'transparent', marginRight:-80}} 
-                        onPress={this.onAddBtnPress.bind(this)} 
-                        imageStyle={{width:25, height:25}} 
+                <View style={{ height: 60, backgroundColor: '#333333', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Text style={{ color: 'white', fontSize: 18, width: 200, backgroundColor: 'transparent', marginLeft: 5 }}>Mobile Detector</Text>
+                    <ImageButton
+                        style={{ backgroundColor: 'transparent', marginRight: -80 }}
+                        onPress={this.onAddBtnPress.bind(this)}
+                        imageStyle={{ width: 25, height: 25 }}
                         imageSource={require('../img/refresh.png')}>
-                    </ImageButton>  
-                    <ImageButton 
-                        style={{backgroundColor:'transparent', marginRight:10}} 
-                        onPress={this.onAddBtnPress.bind(this)} 
-                        imageStyle={{width:25, height:25}} 
+                    </ImageButton>
+                    <ImageButton
+                        style={{ backgroundColor: 'transparent', marginRight: 10 }}
+                        onPress={this.onAddBtnPress.bind(this)}
+                        imageStyle={{ width: 25, height: 25 }}
                         imageSource={require('../img/searchAdd.png')}>
-                    </ImageButton>  
+                    </ImageButton>
                 </View>
                 <View>
-                    <DeviceList itemsource={[{"Catalog":"450L","DeviceType":1,"ProductType":2,"Rev":"1.0","IP":"192.168.1.2","Description":null},
-                                            {"Catalog":"2080-LC20-20QBB_Micro820","DeviceType":999,"ProductType":999,"Rev":"1.0","IP":"192.168.1.21","Description":null},
-                                            {"Catalog":"440C","DeviceType":999,"ProductType":999,"Rev":"2.0","IP":"192.168.1.211","Description":null}]} 
-                                            />
+                    <DeviceList itemsource={this.state.ds} onRefresh={this.requestDevices.bind(this)} />
                 </View>
             </View>
         );
@@ -62,7 +88,7 @@ class DeviceTab extends Component {
 }
 
 var styles = StyleSheet.create({
-    header:{
+    header: {
         height: 80,
         backgroundColor: 'black'
     },

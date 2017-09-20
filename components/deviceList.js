@@ -22,29 +22,40 @@ class DeviceList extends Component {
         super(props);
         this.state = {
             refreshing: false,
+            itemsource: this.props.itemsource
         };
     }
 
     _onRefresh() {
         this.setState({ refreshing: true });
-        fetchData().then(() => {
-            this.setState({ refreshing: false });
+        // fetchData().then(() => {
+        //     this.setState({ refreshing: false });
+        // });
+        var newDate = this.props.onRefresh();
+        this.setState({ 
+            itemsource: newDate, 
+            refreshing: false
         });
     }
 
-    fetchData() { }
+    fetchData() { 
+        return this.props.onRefresh();
+    }
 
     _renderItem = ({ item }) => (
         
         <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
-            <Image source={images[item.Catalog]} style={{ height: 50, width: 50, padding: 20 }}>
+            <Image source={images[item.Catalog]} style={{ height: 50, width: 50, padding: 20,margin:5 }}>
             </Image>
             <View style={{ paddingLeft: 20 }}>
-                <Text style={{ backgroundColor: '#fff' }}>
+                <Text style={{ backgroundColor: '#fff',fontSize:20 }}>
                     {item.Catalog}
                 </Text>
-                <Text style={{ backgroundColor: '#fff' }}>
-                    {item.IP}
+                <Text style={{ backgroundColor: '#fff',fontSize:15 }}>
+                    IP Address: {item.IP}
+                </Text>
+                <Text style={{ backgroundColor: '#fff',fontSize:15 }}>
+                    Rev: {item.Rev}
                 </Text>
             </View>
         </View>
@@ -58,9 +69,11 @@ class DeviceList extends Component {
                         <RefreshControl
                             refreshing={this.state.refreshing}
                             onRefresh={this._onRefresh.bind(this)}
+                            colors={['#ff0000', '#00ff00', '#0000ff','#3ad564']}
+                            progressBackgroundColor="#ffffff"
                         />}
 
-                    data={this.props.itemsource}
+                    data={this.state.itemsource}
                     renderItem={this._renderItem}
                     refreshing={false}
                 />
