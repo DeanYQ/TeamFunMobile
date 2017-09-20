@@ -77,7 +77,7 @@ class AuthService {
             .then((response) => response.json())
             .then((response) => {
                 if (response.error)
-                    return cb(response.error);
+                    return cb(response);
                 else {
                     console.log('response: ' + JSON.stringify(response))
                     AsyncStorage.multiSet([[authKey, formBody],
@@ -86,7 +86,7 @@ class AuthService {
                             if (err) {
                                 throw err;
                             }
-                            return cb({ success: true });
+                            return cb(response);
                         });
                 }
             })
