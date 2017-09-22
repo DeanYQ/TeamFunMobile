@@ -13,24 +13,24 @@ import {
 import ImageButton from './imageButton'
 import DeviceList from './deviceList'
 //import DeviceFlatList from './deviceFlatList'
+var AuthService = require('../AuthService');
 
 const onButtonPress = () => {
     //Alert.alert('Button has been pressed!')
     //React.findDOMNode(this.refs.Te).focus();
     //Alert.alert(document.activeElement.tagName);
 };
+  var token = null;
+  
+
 
 class DeviceTab extends Component {
     constructor(props) {
         super(props);
-        var ds = [
-            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
-            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
-            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
-        ];
+       
         this.state = {
             message: 't',
-            ds
+            ds:[]
         }
     }
 
@@ -38,28 +38,34 @@ class DeviceTab extends Component {
         Alert.alert(this.state.message);
     }
 
-    // componentDidMount() {
-    //     this.requestDevices();
-    // }
+   
+    getDevices(callback) {
+        AuthService.getAuthInfo((err, info) => {
+            var token = info;
+            fetch("http://mobileservices20170819084039.azurewebsites.net/api/Devicelist", {
+                    method: "GET",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
+                .then((response) => {
 
-    requestDevices() {
-        var newData = [
-            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
-            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
-            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
-            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
-            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
-            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
-            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
-            { "Catalog": "450L", "DeviceType": 1, "ProductType": 2, "Rev": "1.0", "IP": "192.168.1.2", "Description": null },
-            { "Catalog": "2080-LC20-20QBB_Micro820", "DeviceType": 999, "ProductType": 999, "Rev": "1.0", "IP": "192.168.1.21", "Description": null },
-            { "Catalog": "440C", "DeviceType": 999, "ProductType": 999, "Rev": "2.0", "IP": "192.168.1.211", "Description": null },
-        ];
-        return newData;
-        // this.setState({
-        //     ds: this.state.ds.cloneWithRows(newData)
-        // });
+                    var newData = JSON.parse(response._bodyInit);
+                    return callback(newData);
+
+                })
+                .done();
+        });
     }
+
+    requestDevices(callback) {
+        this.getDevices((response) => {
+            return callback(response);
+        });
+		
+    }
+
+    
 
     render() {
         return (

@@ -26,16 +26,22 @@ class DeviceList extends Component {
         };
     }
 
+	 componentDidMount() {
+         this._onRefresh();
+     }
+	 
     _onRefresh() {
         this.setState({ refreshing: true });
-        // fetchData().then(() => {
-        //     this.setState({ refreshing: false });
-        // });
-        var newDate = this.props.onRefresh();
-        this.setState({ 
-            itemsource: newDate, 
+        
+        this.props.onRefresh((response)=>{
+			this.setState({ 
+            itemsource: response, 
             refreshing: false
         });
+		console.log(this.state.itemsource);
+		});
+        
+		
     }
 
     fetchData() { 
@@ -45,7 +51,7 @@ class DeviceList extends Component {
     _renderItem = ({ item }) => (
         
         <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
-            <Image source={images[item.Catalog]} style={{ height: 50, width: 50, padding: 20,margin:5 }}>
+            <Image source={images[item.Catalog.trim()]} style={{ height: 50, width: 50, padding: 20,margin:5 }}>
             </Image>
             <View style={{ paddingLeft: 20 }}>
                 <Text style={{ backgroundColor: '#fff',fontSize:20 }}>
