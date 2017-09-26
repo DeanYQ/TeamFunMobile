@@ -69,8 +69,8 @@ class DeviceTab extends Component {
 
     render() {
         return (
-            <View>
-                <View style={{ height: 60, backgroundColor: '#333333', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View style={{ flex:1}}>
+                <View style={{ flex:1,height: 60, backgroundColor: '#333333', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={{ color: 'white', fontSize: 18, width: 200, backgroundColor: 'transparent', marginLeft: 5 }}>Mobile Detector</Text>
                     <ImageButton
                         style={{ backgroundColor: 'transparent', marginRight: -80 }}
@@ -85,7 +85,7 @@ class DeviceTab extends Component {
                         imageSource={require('../img/searchAdd.png')}>
                     </ImageButton>
                 </View>
-                <View>
+                <View style={{ flex:10}}>
                     <DeviceList itemsource={this.state.ds} onRefresh={this.requestDevices.bind(this)} />
                 </View>
             </View>
