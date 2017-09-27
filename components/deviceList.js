@@ -9,13 +9,14 @@ import {
     Animated,
     Alert,
     RefreshControl,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 
 import ImageButton from './imageButton';
- var images = require('./images');
+import images from './images';
+import { StackNavigator, } from 'react-navigation';
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-
 
 class DeviceList extends Component {
     constructor(props) {
@@ -26,45 +27,51 @@ class DeviceList extends Component {
         };
     }
 
-	 componentDidMount() {
-         this._onRefresh();
-     }
-	 
-    _onRefresh() {
-        this.setState({ refreshing: true });
-        
-        this.props.onRefresh((response)=>{
-			this.setState({ 
-            itemsource: response, 
-            refreshing: false
-        });
-		console.log(this.state.itemsource);
-		});
-        
-		
+    componentDidMount() {
+        this._onRefresh();
     }
 
-    fetchData() { 
+    _onRefresh() {
+        this.setState({ refreshing: true });
+
+        this.props.onRefresh((response) => {
+            this.setState({
+                itemsource: response,
+                refreshing: false
+            });
+            console.log(this.state.itemsource);
+        });
+    }
+
+    fetchData() {
         return this.props.onRefresh();
     }
 
+    pressItem(item) {
+        if (this.state.refreshing)
+            return;
+        const { navigate } = this.props.navigation;
+        navigate('Detail')
+    }
+
     _renderItem = ({ item }) => (
-        
-        <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
-            <Image source={images[item.Catalog.trim()]} style={{ height: 50, width: 50, padding: 20,margin:5 }}>
-            </Image>
-            <View style={{ paddingLeft: 20 }}>
-                <Text style={{ backgroundColor: '#fff',fontSize:20 }}>
-                    {item.Catalog}
-                </Text>
-                <Text style={{ backgroundColor: '#fff',fontSize:15 }}>
-                    IP Address: {item.IP}
-                </Text>
-                <Text style={{ backgroundColor: '#fff',fontSize:15 }}>
-                    Rev: {item.Rev}
-                </Text>
+        <TouchableOpacity onPress={_ => this.pressItem(item)}>
+            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
+                <Image source={images[item.Catalog.trim()]} style={{ height: 50, width: 50, padding: 20, margin: 5 }}>
+                </Image>
+                <View style={{ paddingLeft: 20 }}>
+                    <Text style={{ fontSize: 20 }}>
+                        {item.Catalog}
+                    </Text>
+                    <Text style={{ fontSize: 15 }}>
+                        IP Address: {item.IP}
+                    </Text>
+                    <Text style={{ fontSize: 15 }}>
+                        Rev: {item.Rev}
+                    </Text>
+                </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 
     render() {
@@ -75,7 +82,7 @@ class DeviceList extends Component {
                         <RefreshControl
                             refreshing={this.state.refreshing}
                             onRefresh={this._onRefresh.bind(this)}
-                            colors={['#ff0000', '#00ff00', '#0000ff','#3ad564']}
+                            colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
                             progressBackgroundColor="#ffffff"
                         />}
 
