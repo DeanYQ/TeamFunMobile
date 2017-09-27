@@ -7,15 +7,15 @@ import {
     Image,
     Button,
     Alert,
-    FlatList
+    FlatList,
+    TouchableHighlight
 } from 'react-native';
 
 import ImageButton from './imageButton'
 import DeviceList from './deviceList'
 import { StackNavigator } from 'react-navigation';
-//import DeviceFlatList from './deviceFlatList'
 import AuthService from '../AuthService';
-
+import DeviceDetailPage from './deviceDetailPage';
 const onButtonPress = () => {
     //Alert.alert('Button has been pressed!')
     //React.findDOMNode(this.refs.Te).focus();
@@ -23,24 +23,20 @@ const onButtonPress = () => {
 };
 var token = null;
 
-class DeviceDetail extends React.Component {
-    static navigationOptions = {
-      title: 'Device Detail',
-    };
-    render() {      
-      return (
-        <View>
-            <Text>dfdf</Text>
-        </View>
-      );
-    }
-  }
+// class DeviceDetail extends React.Component {
+//     static navigationOptions = {
+//       title: 'Device Detail',
+//     };
+//     render() {      
+//       return (
+//         <View>
+//             <Text>dfdf</Text>
+//         </View>
+//       );
+//     }
+//   }
 
-class DeviceScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Mobile Detector',
-    };
-
+class DeviceHomeScreen extends React.Component {
     constructor(props) {
         super(props);
 
@@ -49,6 +45,25 @@ class DeviceScreen extends React.Component {
             ds: []
         }
     }
+    static navigationOptions = {
+        title: 'Mobile Detector',
+        headerStyle: { backgroundColor: '#960000', },
+        headerTitleStyle: { color: '#fff' },
+        headerRight: (
+            <ImageButton
+                style={{ backgroundColor: 'transparent', marginRight: 10 }}
+                imageStyle={{ width: 25, height: 25 }}
+                imageSource={require('../img/searchAdd.png')}
+                onPress={ () => {
+                    Alert.alert(this.state.message);
+                }}>
+            </ImageButton>
+        ),
+    };
+    onAddBtnPress() {
+        Alert.alert(this.state.message);
+    }
+
 
     requestDevices(callback) {
         this.getDevices((response) => {
@@ -92,8 +107,8 @@ class DeviceScreen extends React.Component {
                     </ImageButton>
                 </View> */}
                 <View style={{ flex: 10 }}>
-                    <DeviceList itemsource={this.props.navigation.state.ds} onRefresh={this.requestDevices.bind(this)} 
-                    navigation={this.props.navigation} />
+                    <DeviceList itemsource={this.props.navigation.state.ds} onRefresh={this.requestDevices.bind(this)}
+                        navigation={this.props.navigation} />
                 </View>
             </View>
         );
@@ -101,8 +116,9 @@ class DeviceScreen extends React.Component {
 }
 
 const DeviceTab = StackNavigator({
-    Home: { screen: DeviceScreen },
-    Detail: {screen: DeviceDetail},
+    Home: { screen: DeviceHomeScreen },
+    Detail: { screen: DeviceDetailPage },
+
 })
 
 // class DeviceTab extends Component {

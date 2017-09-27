@@ -51,7 +51,7 @@ class DeviceList extends Component {
         if (this.state.refreshing)
             return;
         const { navigate } = this.props.navigation;
-        navigate('Detail')
+        navigate('Detail', {data: item});
     }
 
     _renderItem = ({ item }) => (
