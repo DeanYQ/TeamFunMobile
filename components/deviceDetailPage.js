@@ -28,9 +28,14 @@ class DeviceDetailPage extends React.Component {
     render() {
         const item = this.props.navigation.state.params.data;
         return (
-            <View style={{ flex: 1, }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: '#fff', width: 100, height: 100, borderRadius: 100, }}>
-                    <Image source={images[item.Catalog.trim()]} style={{ width: 90, height: 90, borderRadius: 100,  }} />
+            <View style={{ flex: 1, flexDirection: 'row', margin: 10 }}>
+                <View style={{ flex: 1, alignItems: 'center', }}>
+                    <View style={{
+                        backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,
+                    }}>
+                        <Image source={images[item.Catalog.trim()]}
+                            style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
+                    </View>
                 </View>
             </View>
         );
@@ -38,11 +43,11 @@ class DeviceDetailPage extends React.Component {
 }
 
 var styles = StyleSheet.create({
-header: {
-    height: 80,
+    header: {
+        height: 80,
         backgroundColor: 'black'
-},
-   
+    },
+
 });
 
 module.exports = DeviceDetailPage;

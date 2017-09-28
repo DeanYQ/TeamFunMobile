@@ -51,7 +51,7 @@ class DeviceHomeScreen extends React.Component {
         headerTitleStyle: { color: '#fff' },
         headerRight: (
             <ImageButton
-                style={{ backgroundColor: 'transparent', marginRight: 10 }}
+                style={{ backgroundColor: '#960000', marginRight: 10 }}
                 imageStyle={{ width: 25, height: 25 }}
                 imageSource={require('../img/searchAdd.png')}
                 onPress={ () => {
