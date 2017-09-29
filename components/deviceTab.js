@@ -74,7 +74,7 @@ class DeviceHomeScreen extends React.Component {
     getDevices(callback) {
         AuthService.getAuthInfo((err, info) => {
             var token = info;
-            fetch("http://mobileservices20170819084039.azurewebsites.net/api/Devicelist", {
+            fetch("http://********************api****************************/api/Devicelist", {
                 method: "GET",
                 headers: {
                     'Authorization': 'Bearer ' + token
