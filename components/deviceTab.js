@@ -7,8 +7,7 @@ import {
     Image,
     Button,
     Alert,
-    FlatList,
-    TouchableHighlight
+    FlatList
 } from 'react-native';
 
 import ImageButton from './imageButton'
@@ -66,20 +65,23 @@ class DeviceHomeScreen extends React.Component {
 
 
     requestDevices(callback) {
-        this.getDevices((response) => {
+		    var url = "http://mobileservices20170819084039.azurewebsites.net/api/Devicelist";
+        this.getDevices(url,(response) => {
             return callback(response);
         });
+		
     }
 
-    getDevices(callback) {
+    getDevices(url,callback) {
+		console.log(url);
         AuthService.getAuthInfo((err, info) => {
             var token = info;
-            fetch("http://********************api****************************/api/Devicelist", {
-                method: "GET",
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            })
+            fetch(url, {
+                    method: "GET",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
                 .then((response) => {
 
                     var newData = JSON.parse(response._bodyInit);
