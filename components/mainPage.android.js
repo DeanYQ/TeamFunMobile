@@ -11,7 +11,12 @@ import {
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator'
-import DeviceTab  from '../deviceTab'
+import { StackNavigator } from 'react-navigation'
+
+import DeviceDetailPage from './deviceDetailPage';
+import DeviceTab  from './deviceTab'
+import DeviceAdd from './deviceAdd'
+import ImageButton from './imageButton'
 
 const onButtonPress = () => {
    //Alert.alert('Button has been pressed!');
@@ -29,13 +34,44 @@ const onButtonPress = () => {
     .done();
 };
  
-class MainPage extends Component {
+class HomePage extends Component {
      constructor(props) {
          super(props);
          this.state = {
              selectedTab: 'Devices'
          }
      }
+
+     static navigationOptions = ({navigation}) => {
+        const {params = {}} = navigation.state;
+        return {
+            title: 'Mobile Detector',
+            headerStyle: { backgroundColor: '#960000', },
+            headerTitleStyle: { color: '#fff' },
+            headerRight: (
+                <ImageButton
+                    style={{ backgroundColor: 'transparent', marginRight: 10 }}
+                    imageStyle={{ width: 25, height: 25 }}
+                    imageSource={require('../img/searchAdd.png')}
+                    onPress={ () => {
+                        //Alert.alert(this.state.message);
+                        //const { navigate } = this.props.navigation;
+                        //navigate('DeviceAdd', {navigation: this.props.navigation});
+                        params.deviceNavigate(params.target);
+                    }}>
+                </ImageButton>
+            ),
+        }
+    };
+
+    componentDidMount(){
+        this.props.navigation.setParams({deviceNavigate:this.navigateDeviceAdd, target: this})
+    }
+
+    navigateDeviceAdd(target){
+        const { navigate } = target.props.navigation;
+        navigate('DeviceAdd', {navigation: target.props.navigation});
+    }
  
      render() {
          return (
@@ -46,11 +82,11 @@ class MainPage extends Component {
                          title="Devices"
                          titleStyle={styles.tabText}
                          selectedTitleStyle={styles.selectedTabText}
-                         renderIcon={() => <Image style={styles.icon} source={require("../../img/deviceIcon.png")} />}
-                         renderSelectedIcon={() => <Image style={[styles.icon,{tintColor:'green'}]} source={require("../../img/deviceIcon.png")} />}
+                         renderIcon={() => <Image style={styles.icon} source={require("../img/deviceIcon.png")} />}
+                         renderSelectedIcon={() => <Image style={[styles.icon,{tintColor:'green'}]} source={require("../img/deviceIcon.png")} />}
                          onPress={() => this.setState({ selectedTab: 'Devices' })}>
                          <View style={styles.page0}>
-                            <DeviceTab></DeviceTab>
+                            <DeviceTab navigation={this.props.navigation}></DeviceTab>
                          </View>
                      </TabNavigator.Item>
                      <TabNavigator.Item
@@ -58,8 +94,8 @@ class MainPage extends Component {
                          title="Me"
                          titleStyle={styles.tabText}
                          selectedTitleStyle={styles.selectedTabText}
-                         renderIcon={() => <Image style={styles.icon} source={require("../../img/user.png")} />}
-                         renderSelectedIcon={() => <Image style={[styles.icon,{tintColor:'green'}]} source={require("../../img/user.png")} />}
+                         renderIcon={() => <Image style={styles.icon} source={require("../img/user.png")} />}
+                         renderSelectedIcon={() => <Image style={[styles.icon,{tintColor:'green'}]} source={require("../img/user.png")} />}
                          onPress={() => this.setState({ selectedTab: 'Me' })}>
                          <View style={styles.page0}>
                              <Text style={{fontSize:18,padding:15,color: 'blue'}}>This is user Page</Text>
@@ -70,6 +106,12 @@ class MainPage extends Component {
          );
      }
  }
+
+const MainPage = StackNavigator({
+    Home: { screen: HomePage },
+    Detail: { screen: DeviceDetailPage },
+    DeviceAdd: {screen: DeviceAdd}
+})
  
 const styles = StyleSheet.create({
     container: {

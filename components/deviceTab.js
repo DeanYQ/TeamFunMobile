@@ -35,7 +35,7 @@ var token = null;
 //     }
 //   }
 
-class DeviceHomeScreen extends React.Component {
+class DeviceTab extends React.Component {
     constructor(props) {
         super(props);
 
@@ -44,23 +44,24 @@ class DeviceHomeScreen extends React.Component {
             ds: []
         }
     }
-    static navigationOptions = {
-        title: 'Mobile Detector',
-        headerStyle: { backgroundColor: '#960000', },
-        headerTitleStyle: { color: '#fff' },
-        headerRight: (
-            <ImageButton
-                style={{ backgroundColor: 'transparent', marginRight: 10 }}
-                imageStyle={{ width: 25, height: 25 }}
-                imageSource={require('../img/searchAdd.png')}
-                onPress={ () => {
-                    Alert.alert(this.state.message);
-                }}>
-            </ImageButton>
-        ),
-    };
+    
+    //static navigationOptions = {
+    //    title: 'Mobile Detector',
+    //    headerStyle: { backgroundColor: '#960000', },
+    //    headerTitleStyle: { color: '#fff' },
+    //    headerRight: (
+    //        <ImageButton
+    //            style={{ backgroundColor: 'transparent', marginRight: 10 }}
+    //            imageStyle={{ width: 25, height: 25 }}
+    //            imageSource={require('../img/searchAdd.png')}
+    //            onPress={ () => {
+    //                Alert.alert(this.state.message);
+    //            }}>
+    //        </ImageButton>
+    //    ),
+    //};
     onAddBtnPress() {
-        Alert.alert(this.state.message);
+        //Alert.alert(this.state.message);
     }
 
 
@@ -117,11 +118,10 @@ class DeviceHomeScreen extends React.Component {
     }
 }
 
-const DeviceTab = StackNavigator({
-    Home: { screen: DeviceHomeScreen },
-    Detail: { screen: DeviceDetailPage },
-
-})
+//const DeviceTab = StackNavigator({
+//    Home: { screen: DeviceHomeScreen },
+//    Detail: { screen: DeviceDetailPage },
+//})
 
 // class DeviceTab extends Component {
 //     constructor(props) {
