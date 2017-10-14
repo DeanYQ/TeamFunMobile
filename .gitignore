@@ -51,3 +51,6 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+android/app/apkkey.jks
+android/app/build.gradle
+android/app/src/main/assets/index.android.bundle
