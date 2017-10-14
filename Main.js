@@ -8,7 +8,7 @@ import {
 var Login = require('./components/Login/Login');
 // var AppContainer = require('./AppContainer');
 var AuthService = require('./AuthService');
-var MainPage = require('./components/android/mainPage.js');
+var MainPage = require('./components/mainPage.js');
 
 class Main extends Component {
     constructor(props) {

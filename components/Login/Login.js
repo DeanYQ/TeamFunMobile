@@ -88,7 +88,7 @@ class Login extends Component{
 
 let styles = StyleSheet.create({
     container:{
-        backgroundColor: '#f5fcff',
+        backgroundColor: '#fff',
         flex: 1,
         paddingTop: 20,
         padding:10,

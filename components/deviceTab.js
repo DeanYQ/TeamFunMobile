@@ -7,8 +7,7 @@ import {
     Image,
     Button,
     Alert,
-    FlatList,
-    TouchableHighlight
+    FlatList
 } from 'react-native';
 
 import ImageButton from './imageButton'
@@ -36,7 +35,7 @@ var token = null;
 //     }
 //   }
 
-class DeviceHomeScreen extends React.Component {
+class DeviceTab extends React.Component {
     constructor(props) {
         super(props);
 
@@ -45,41 +44,45 @@ class DeviceHomeScreen extends React.Component {
             ds: []
         }
     }
-    static navigationOptions = {
-        title: 'Mobile Detector',
-        headerStyle: { backgroundColor: '#960000', },
-        headerTitleStyle: { color: '#fff' },
-        headerRight: (
-            <ImageButton
-                style={{ backgroundColor: 'transparent', marginRight: 10 }}
-                imageStyle={{ width: 25, height: 25 }}
-                imageSource={require('../img/searchAdd.png')}
-                onPress={ () => {
-                    Alert.alert(this.state.message);
-                }}>
-            </ImageButton>
-        ),
-    };
+    
+    //static navigationOptions = {
+    //    title: 'Mobile Detector',
+    //    headerStyle: { backgroundColor: '#960000', },
+    //    headerTitleStyle: { color: '#fff' },
+    //    headerRight: (
+    //        <ImageButton
+    //            style={{ backgroundColor: 'transparent', marginRight: 10 }}
+    //            imageStyle={{ width: 25, height: 25 }}
+    //            imageSource={require('../img/searchAdd.png')}
+    //            onPress={ () => {
+    //                Alert.alert(this.state.message);
+    //            }}>
+    //        </ImageButton>
+    //    ),
+    //};
     onAddBtnPress() {
-        Alert.alert(this.state.message);
+        //Alert.alert(this.state.message);
     }
 
 
     requestDevices(callback) {
-        this.getDevices((response) => {
+		    var url = "http://mobileservices20170819084039.azurewebsites.net/api/Devicelist";
+        this.getDevices(url,(response) => {
             return callback(response);
         });
+		
     }
 
-    getDevices(callback) {
+    getDevices(url,callback) {
+		console.log(url);
         AuthService.getAuthInfo((err, info) => {
             var token = info;
-            fetch("http://mobileservices20170819084039.azurewebsites.net/api/Devicelist", {
-                method: "GET",
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            })
+            fetch(url, {
+                    method: "GET",
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
                 .then((response) => {
 
                     var newData = JSON.parse(response._bodyInit);
@@ -115,11 +118,10 @@ class DeviceHomeScreen extends React.Component {
     }
 }
 
-const DeviceTab = StackNavigator({
-    Home: { screen: DeviceHomeScreen },
-    Detail: { screen: DeviceDetailPage },
-
-})
+//const DeviceTab = StackNavigator({
+//    Home: { screen: DeviceHomeScreen },
+//    Detail: { screen: DeviceDetailPage },
+//})
 
 // class DeviceTab extends Component {
 //     constructor(props) {
