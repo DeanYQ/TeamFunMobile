@@ -54,7 +54,7 @@ class GeneralPage extends React.Component{
                         Catalog ID:
                       </Text>
                        <Text style={styles.textStyle}>
-                        {this.state.item.Catalog}
+                        Catalog ID
                         </Text>
                     </View>
                     <View style={{flexDirection:'row',margin:10}}>

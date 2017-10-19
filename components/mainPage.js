@@ -17,7 +17,7 @@ import DeviceDetailPage from './deviceDetailPage';
 import DeviceTab  from './deviceTab'
 import DeviceAdd from './deviceAdd'
 import ImageButton from './imageButton'
-
+import GeneralPage from './CR30/GeneralPage';
 const onButtonPress = () => {
    //Alert.alert('Button has been pressed!');
 
@@ -110,6 +110,7 @@ class HomePage extends Component {
 const MainPage = StackNavigator({
     Home: { screen: HomePage },
     Detail: { screen: DeviceDetailPage },
+    CR30GeneralPage:{screen:GeneralPage},
     DeviceAdd: {screen: DeviceAdd}
 })
  
