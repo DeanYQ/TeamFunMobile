@@ -16,6 +16,7 @@ import {
 import images from '../images';
 import GeneralPage from './GeneralPage';
 import { StackNavigator, } from 'react-navigation';
+import Signalr from '../Signalr/deviceSignalr.js';
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 class MainPageCR30 extends React.Component {
@@ -27,7 +28,8 @@ class MainPageCR30 extends React.Component {
 
         this.state = {
             refreshing: false,
-            itemsource: ["General","Fault Log"]
+            itemsource: ["General","Fault Log"],
+            configData: ""
         };
     }
 
@@ -39,8 +41,19 @@ class MainPageCR30 extends React.Component {
 
 
     componentDidMount() {
+        Signalr.connect('440C', ((data) => {
+
+            this.setState({
+                configData: data
+            }, () => console.log('get-data-from-server:' + this.state.configData));
+        }));
+        
      //   this._onRefresh();
     }
+
+    // ConnectToAdapter(proxy){
+    //     Signalr.ConnectToAdapter(proxy,'440C');
+    // }
 
    // _onRefresh() {
     //    this.setState({ refreshing: true });
