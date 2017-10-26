@@ -1,11 +1,11 @@
 import signalr from 'react-native-signalr';
 
-const signalrUrl = 'http://****************api************/';
+const signalrUrl = 'http://******************.api.net/';
 var proxy;
 var connection;
 
 class DeviceSignalr {    
-    connect(catalog, cb) {
+    connect(catalog, ip, cb) {
         //This is the server under /example/server published on azure.
         this.connection = signalr.hubConnection(signalrUrl);
         this.connection.logging = true;
@@ -26,7 +26,7 @@ class DeviceSignalr {
         // atempt connection, and handle errors
         this.connection.start().done(() => {
           console.log('Now connected, connection ID=' + this.connection.id);
-          this.ConnectToAdapter(catalog);
+          this.ConnectToAdapter(catalog.trim(), ip.trim());
         //   this.sendMsg('Send', 'Hello Server, how are you?')           
         }).fail(() => {
           console.log('Failed');
@@ -54,13 +54,13 @@ class DeviceSignalr {
         this.connection.disconnect();
       }
 
-      ConnectToAdapter(catalog){
+      ConnectToAdapter(catalog, ip){
         this.proxy.invoke('ConnectToAdapter', catalog)
         .done((response) => {
           if (response){          
             console.log('connected-to-adapter');
             console.log('before upload');
-            this.proxy.invoke('Upload').done(() =>{
+            this.proxy.invoke('Upload', ip).done(() =>{
               console.log('after upload');                
             });            
           }

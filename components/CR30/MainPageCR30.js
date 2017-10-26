@@ -28,7 +28,7 @@ class MainPageCR30 extends React.Component {
 
         this.state = {
             refreshing: false,
-            itemsource: ["General","Fault Log"],
+            itemsource: ["General", "Fault Log"],
             configData: ""
         };
     }
@@ -41,31 +41,32 @@ class MainPageCR30 extends React.Component {
 
 
     componentDidMount() {
-        Signalr.connect('440C', ((data) => {
+        Signalr.connect(this.props.navigation.state.params.data.Catalog,
+            this.props.navigation.state.params.data.IP,
+            ((data) => {
+                this.setState({
+                    configData: data
+                }, () => console.log('get-data-from-server:' + this.state.configData));
+            }));
 
-            this.setState({
-                configData: data
-            }, () => console.log('get-data-from-server:' + this.state.configData));
-        }));
-        
-     //   this._onRefresh();
+        //   this._onRefresh();
     }
 
     // ConnectToAdapter(proxy){
     //     Signalr.ConnectToAdapter(proxy,'440C');
     // }
 
-   // _onRefresh() {
+    // _onRefresh() {
     //    this.setState({ refreshing: true });
 
-      //  this.props.onRefresh((response) => {
-      //      this.setState({
-      //          itemsource: response,
-        //        refreshing: false
-       //     });
-      //      console.log(this.state.itemsource);
-     //   });
-  //  }
+    //  this.props.onRefresh((response) => {
+    //      this.setState({
+    //          itemsource: response,
+    //        refreshing: false
+    //     });
+    //      console.log(this.state.itemsource);
+    //   });
+    //  }
 
     fetchData() {
         return this.props.onRefresh();
@@ -75,10 +76,10 @@ class MainPageCR30 extends React.Component {
         if (this.state.refreshing)
             return;
         const { navigate } = this.props.navigation;
-		if ("General" == item)
-			navigate('CR30GeneralPage', {data: this.props.navigation.state.params.data});
-		else if ("Fault Log" == item)
-			navigate('CR30FaultPage', {data: this.props.navigation.state.params.data});
+        if ("General" == item)
+            navigate('CR30GeneralPage', { data: this.props.navigation.state.params.data });
+        else if ("Fault Log" == item)
+            navigate('CR30FaultPage', { data: this.props.navigation.state.params.data });
     }
 
     _renderItem = ({ item }) => (
@@ -88,7 +89,7 @@ class MainPageCR30 extends React.Component {
                     <Text style={{ fontSize: 20 }}>
                         {item}
                     </Text>
-                  
+
                 </View>
             </View>
         </TouchableOpacity>
@@ -97,12 +98,12 @@ class MainPageCR30 extends React.Component {
     render() {
         //const item = this.props.navigation.state.params.data;
         return (
-            <View style={{ flex: 1, flexDirection: 'row', margin: 10 }}>         
+            <View style={{ flex: 1, flexDirection: 'row', margin: 10 }}>
                 <AnimatedFlatList
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
-                           // onRefresh={this._onRefresh.bind(this)}
+                            // onRefresh={this._onRefresh.bind(this)}
                             colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
                             progressBackgroundColor="#ffffff"
                         />}
@@ -112,9 +113,9 @@ class MainPageCR30 extends React.Component {
                     refreshing={false}
                 />
             </View >
-            
+
         );
-          
+
     }
 }
 
