@@ -82,7 +82,7 @@ class MainPagePV800 extends React.Component {
 
     _renderItem = ({ item }) => (
         <TouchableOpacity onPress={_ => this.pressItem(item)}>
-            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
+            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1,borderTopWidth: 1 }}>
                 <View style={{ paddingLeft: 20 }}>
                     <Text style={{ fontSize: 20 }}>
                         {item}

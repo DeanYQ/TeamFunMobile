@@ -30,7 +30,7 @@ class GeneralPage extends React.Component{
      render() {
        
         return (
-            <View style={{ flexDirection: 'column' }}>
+            <View style={{ flexDirection: 'column' ,backgroundColor: '#fff',paddingBottom:300}}>
                   <View style={{flexDirection:'row',margin:10}}>
                     <Text style={styles.textStyle}>Name:</Text>
                     <TextInput underlineColorAndroid='transparent'  style={styles.input} />
