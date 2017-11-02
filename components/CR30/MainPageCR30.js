@@ -76,9 +76,9 @@ class MainPageCR30 extends React.Component {
             return;
         const { navigate } = this.props.navigation;
 		if ("General" == item)
-			navigate('CR30GeneralPage', {data: this.props.navigation.state.params.data});
+			navigate('CR30GeneralPage', {data: this.props.navigation.state.params.data, name:this.state.configData.Catalog, desc:this.state.configData.Description});
 		else if ("Fault Log" == item)
-			navigate('CR30FaultPage', {data: this.props.navigation.state.params.data});
+			navigate('CR30FaultPage', {data: this.props.navigation.state.params.data, fault:this.state.configData.Fault});
     }
 
     _renderItem = ({ item }) => (

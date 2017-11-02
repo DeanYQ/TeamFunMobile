@@ -11,6 +11,8 @@ import {
     TextInput
 } from 'react-native';
 
+import ModalDropdown from 'react-native-modal-dropdown';
+
 class DeviceAdd extends Component{
     constructor(props){
         super(props);
@@ -59,6 +61,13 @@ class DeviceAdd extends Component{
         const { navigate } = this.props.navigation;
         return (
             <View>
+                <ModalDropdown 
+                    style={styles.dropdown} 
+                    textStyle={styles.dropdownText}
+                    dropdownStyle={styles.dropdownStyle}
+                    dropdownTextStyle={styles.dropdownItemText}
+                    defaultValue='CR30' 
+                    options={['CR30', 'Micro800','Light Curtain','PV800']}/>
                 <TextInput
                     style={styles.ipInput} 
                     placeholder="input the IP address"
@@ -89,6 +98,26 @@ var styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10,
         paddingTop: 10
+    },
+    dropdown: {
+        borderColor:'#b8b894',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        height: 30,
+        backgroundColor: 'white'
+    },
+    dropdownText:{
+        fontSize: 18
+    },
+    dropdownItem:{
+        width: 300,
+    },
+    dropdownItemText:{
+        fontSize: 18
     }
 });
 module.exports = DeviceAdd;
