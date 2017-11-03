@@ -45,7 +45,7 @@ class MainPageCR30 extends React.Component {
             this.props.navigation.state.params.data.IP,
             ((data) => {
                 this.setState({
-                    configData: data
+                    configData: JSON.parse(data)
                 }, () => console.log('get-data-from-server:' + this.state.configData));
             }));
 
@@ -77,9 +77,9 @@ class MainPageCR30 extends React.Component {
             return;
         const { navigate } = this.props.navigation;
 		if ("General" == item)
-			navigate('CR30GeneralPage', {data: this.props.navigation.state.params.data, name:this.state.configData.Catalog, desc:this.state.configData.Description});
+			navigate('CR30GeneralPage', {data: this.props.navigation.state.params.data, configData:this.state.configData});
 		else if ("Fault Log" == item)
-			navigate('CR30FaultPage', {data: this.props.navigation.state.params.data, fault:this.state.configData.Fault});
+			navigate('CR30FaultPage', {data: this.props.navigation.state.params.data, configData:this.state.configData});
     }
 
     _renderItem = ({ item }) => (

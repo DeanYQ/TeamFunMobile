@@ -35,13 +35,13 @@ class GeneralPage extends React.Component{
             <View style={{ flexDirection: 'column' ,backgroundColor: '#fff',paddingBottom:300}}>
                   <View style={{flexDirection:'row',margin:10}}>
                     <Text style={styles.textStyle}>Name:</Text>
-                    <TextInput underlineColorAndroid='transparent'  style={styles.input} value={this.props.navigation.state.params.name}/>
+                    <TextInput underlineColorAndroid='transparent'  style={styles.input} value={this.props.navigation.state.params.configData.General.DeviceName}/>
                   </View>
                   <View style={{flexDirection:'row',margin:10}}>
                     <Text style={styles.textStyle}>
                          Description:
                     </Text>
-                    <TextInput style={styles.descriptionInput}  underlineColorAndroid='transparent' value={this.props.navigation.state.params.desc}/>
+                    <TextInput style={styles.descriptionInput}  underlineColorAndroid='transparent' value={this.props.navigation.state.params.configData.General.Description}/>
                    </View>
                   <View style={{flexDirection:'row',margin:10}}>
                       <Text style={styles.textStyle}>

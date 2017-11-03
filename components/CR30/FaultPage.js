@@ -20,9 +20,9 @@ class FaultPage extends Component {
   render() {
     // Parse Json data to string data
 	let display = "";
-	if (this.state.fault != null)
+	if (this.props.navigation.state.params.configData.FaultLog != null)
 	{
-    display = this.state.fault;
+    display = this.props.navigation.state.params.configData.FaultLog.FaultLogContent.toString();
 		//display = this.state.responseData.FaultLog.FaultLogContent.toString();
 	}
 	
