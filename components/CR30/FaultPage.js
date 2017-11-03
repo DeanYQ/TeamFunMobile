@@ -13,6 +13,7 @@ class FaultPage extends Component {
         title: navigation.state.params.data.Catalog.trim(),
         headerStyle: { backgroundColor: '#960000', },
         headerTitleStyle: { color: '#fff' },
+        
     });
 	
   render() {
