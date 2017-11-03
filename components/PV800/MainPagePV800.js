@@ -14,12 +14,11 @@ import {
 } from 'react-native';
 
 import images from '../images';
-import GeneralPage from './GeneralPage';
 import { StackNavigator, } from 'react-navigation';
 import Signalr from '../Signalr/deviceSignalr.js';
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-class MainPageCR30 extends React.Component {
+class MainPagePV800 extends React.Component {
     constructor(props) {
         super(props);
         // this.state= {
@@ -28,7 +27,7 @@ class MainPageCR30 extends React.Component {
 
         this.state = {
             refreshing: false,
-            itemsource: ["General","Fault Log"],
+            itemsource: ["Alarm List"],
             configData: ""
         };
     }
@@ -41,7 +40,7 @@ class MainPageCR30 extends React.Component {
 
 
     componentDidMount() {
-        Signalr.connect('440C', ((data) => {
+        Signalr.connect('2711R-T7T', ((data) => {
 
             this.setState({
                 configData: data
@@ -75,15 +74,15 @@ class MainPageCR30 extends React.Component {
         if (this.state.refreshing)
             return;
         const { navigate } = this.props.navigation;
-		if ("General" == item)
-			navigate('CR30GeneralPage', {data: this.props.navigation.state.params.data, name:this.state.configData.Catalog, desc:this.state.configData.Description});
-		else if ("Fault Log" == item)
-			navigate('CR30FaultPage', {data: this.props.navigation.state.params.data, fault:this.state.configData.Fault});
+		if ("Alarm List" == item)
+			navigate('AlarmListPage', {data: this.props.navigation.state.params.data});
+	//	else if ("Fault Log" == item)
+	//		navigate('CR30FaultPage', {data: this.props.navigation.state.params.data});
     }
 
     _renderItem = ({ item }) => (
         <TouchableOpacity onPress={_ => this.pressItem(item)}>
-            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1 }}>
+            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1,borderTopWidth: 1 }}>
                 <View style={{ paddingLeft: 20 }}>
                     <Text style={{ fontSize: 20 }}>
                         {item}
@@ -126,4 +125,4 @@ var styles = StyleSheet.create({
 
 });
 
-module.exports = MainPageCR30;
+module.exports = MainPagePV800;

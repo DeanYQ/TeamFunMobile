@@ -20,6 +20,8 @@ class GeneralPage extends React.Component{
          this.state= {
              item: this.props.data
          };
+
+         //Alert.alert(this.props.navigation.state.params.data.toString());
     }
        static navigationOptions = ({ navigation, screenProps }) => ({
         title: navigation.state.params.data.Catalog.trim(),
@@ -30,16 +32,16 @@ class GeneralPage extends React.Component{
      render() {
        
         return (
-            <View style={{ flexDirection: 'column' }}>
+            <View style={{ flexDirection: 'column' ,backgroundColor: '#fff',paddingBottom:300}}>
                   <View style={{flexDirection:'row',margin:10}}>
                     <Text style={styles.textStyle}>Name:</Text>
-                    <TextInput underlineColorAndroid='transparent'  style={styles.input} />
+                    <TextInput underlineColorAndroid='transparent'  style={styles.input} value={this.props.navigation.state.params.name}/>
                   </View>
                   <View style={{flexDirection:'row',margin:10}}>
                     <Text style={styles.textStyle}>
                          Description:
                     </Text>
-                    <TextInput style={styles.descriptionInput}  underlineColorAndroid='transparent' />
+                    <TextInput style={styles.descriptionInput}  underlineColorAndroid='transparent' value={this.props.navigation.state.params.desc}/>
                    </View>
                   <View style={{flexDirection:'row',margin:10}}>
                       <Text style={styles.textStyle}>

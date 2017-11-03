@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet,Alert } from 'react-native';
 
 class FaultPage extends Component {
 	constructor(props) {
         super(props);
         this.state = {
-            responseData: null
+            responseData: null,
+            fault: props.navigation.state.params.fault
         };
     }
 	
@@ -19,9 +20,10 @@ class FaultPage extends Component {
   render() {
     // Parse Json data to string data
 	let display = "";
-	if (this.state.responseData != null)
+	if (this.state.fault != null)
 	{
-		display = this.state.responseData.FaultLog.FaultLogContent.toString();
+    display = this.state.fault;
+		//display = this.state.responseData.FaultLog.FaultLogContent.toString();
 	}
 	
     return (
