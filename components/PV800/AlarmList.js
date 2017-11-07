@@ -14,12 +14,53 @@ import {
 } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
+const tableData = [
+    ['Alarm Twenty', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],
+    ['Alarm Ten', 'NotAcked'],];
+
 class AlarmList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             responseData: null,
-            // fault: props.navigation.state.params.fault
+            alarms: tableData
+            // alarms: props.navigation.state.params.alarms
         };
     }
 
@@ -32,55 +73,17 @@ class AlarmList extends Component {
 
     render() {
         const tableHead = ['Alarm Message', 'Ack Status'];
-        const tableData = [
-            ['Alarm Twenty', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],
-            ['Alarm Ten', 'NotAcked'],];
+        
 
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <Table>
                     <Row data={tableHead} style={styles.head} flexArr={[2, 1]} textStyle={styles.headtext} />
                 </Table>
                 <ScrollView showsVerticalScrollIndicator={true} >
                     <Table>
                         <TableWrapper style={{ flexDirection: 'row' }}>
-                            <Rows data={tableData} style={styles.row} flexArr={[2, 1]} textStyle={styles.rowtext} />
+                            <Rows data={this.state.alarms} style={styles.row} flexArr={[2, 1]} textStyle={styles.rowtext} />
                         </TableWrapper>
                     </Table>
                 </ScrollView>
