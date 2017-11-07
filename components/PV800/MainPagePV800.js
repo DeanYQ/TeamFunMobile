@@ -40,31 +40,32 @@ class MainPagePV800 extends React.Component {
 
 
     componentDidMount() {
-        Signalr.connect('2711R-T7T', ((data) => {
+        Signalr.connect(this.props.navigation.state.params.data.Catalog,
+            this.props.navigation.state.params.data.IP,
+            ((data) => {
+                this.setState({
+                    configData: data
+                }, () => console.log('get-data-from-server:' + this.state.configData));
+            }));
 
-            this.setState({
-                configData: data
-            }, () => console.log('get-data-from-server:' + this.state.configData));
-        }));
-        
-     //   this._onRefresh();
+        //   this._onRefresh();
     }
 
     // ConnectToAdapter(proxy){
     //     Signalr.ConnectToAdapter(proxy,'440C');
     // }
 
-   // _onRefresh() {
+    // _onRefresh() {
     //    this.setState({ refreshing: true });
 
-      //  this.props.onRefresh((response) => {
-      //      this.setState({
-      //          itemsource: response,
-        //        refreshing: false
-       //     });
-      //      console.log(this.state.itemsource);
-     //   });
-  //  }
+    //  this.props.onRefresh((response) => {
+    //      this.setState({
+    //          itemsource: response,
+    //        refreshing: false
+    //     });
+    //      console.log(this.state.itemsource);
+    //   });
+    //  }
 
     fetchData() {
         return this.props.onRefresh();
@@ -74,20 +75,20 @@ class MainPagePV800 extends React.Component {
         if (this.state.refreshing)
             return;
         const { navigate } = this.props.navigation;
-		if ("Alarm List" == item)
-			navigate('AlarmListPage', {data: this.props.navigation.state.params.data});
-	//	else if ("Fault Log" == item)
-	//		navigate('CR30FaultPage', {data: this.props.navigation.state.params.data});
+        if ("Alarm List" == item)
+            navigate('PV800AlarmList', { data: this.props.navigation.state.params.data });
+        //	else if ("Fault Log" == item)
+        //		navigate('CR30FaultPage', {data: this.props.navigation.state.params.data});
     }
 
     _renderItem = ({ item }) => (
         <TouchableOpacity onPress={_ => this.pressItem(item)}>
-            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1,borderTopWidth: 1 }}>
+            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1 }}>
                 <View style={{ paddingLeft: 20 }}>
                     <Text style={{ fontSize: 20 }}>
                         {item}
                     </Text>
-                  
+
                 </View>
             </View>
         </TouchableOpacity>
@@ -96,12 +97,12 @@ class MainPagePV800 extends React.Component {
     render() {
         //const item = this.props.navigation.state.params.data;
         return (
-            <View style={{ flex: 1, flexDirection: 'row', margin: 10 }}>         
+            <View style={{ flex: 1, flexDirection: 'row', margin: 10 }}>
                 <AnimatedFlatList
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
-                           // onRefresh={this._onRefresh.bind(this)}
+                            // onRefresh={this._onRefresh.bind(this)}
                             colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
                             progressBackgroundColor="#ffffff"
                         />}
@@ -111,9 +112,9 @@ class MainPagePV800 extends React.Component {
                     refreshing={false}
                 />
             </View >
-            
+
         );
-          
+
     }
 }
 
