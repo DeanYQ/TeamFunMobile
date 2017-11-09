@@ -106,11 +106,11 @@ class DeviceAdd extends Component {
                     Description: 'sample string 6'
                 })
             })
-                .then((response) => {
-                    this.setModalVisible(false);
-                    navigate("Home");
-                })
-                .done();
+            .then((response) => {
+                this.setModalVisible(false);
+                navigate("Home");
+            })
+            .done();
         });
         //navigate("Home");
     }
