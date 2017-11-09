@@ -55,12 +55,12 @@ class DeviceSignalr {
       }
 
       ConnectToAdapter(catalog, ip){
-        this.proxy.invoke('ConnectToAdapter', catalog)
+        this.proxy.invoke('ConnectToAdapter', 'CCW')
         .done((response) => {
           if (response){          
             console.log('connected-to-adapter');
             console.log('before upload');
-            this.proxy.invoke('Upload', ip).done(() =>{
+            this.proxy.invoke('Upload', catalog, ip).done(() =>{
               console.log('after upload');                
             });            
           }

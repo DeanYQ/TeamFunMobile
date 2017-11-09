@@ -44,7 +44,7 @@ class MainPagePV800 extends React.Component {
             this.props.navigation.state.params.data.IP,
             ((data) => {
                 this.setState({
-                    configData: data
+                    configData: JSON.parse(data)
                 }, () => console.log('get-data-from-server:' + this.state.configData));
             }));
 
