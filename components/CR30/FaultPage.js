@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet,Alert } from 'react-native';
+import { Text, View, StyleSheet,Alert,ScrollView } from 'react-native';
 
 class FaultPage extends Component {
 	constructor(props) {
@@ -34,9 +34,11 @@ class FaultPage extends Component {
             </Text>
         </View>
         <View style={styles.textcontainer}>
+          <ScrollView>
             <Text style={styles.paragraph}>
-				{display}
+                {display}
             </Text>
+            </ScrollView>
         </View>
       </View>
     );
