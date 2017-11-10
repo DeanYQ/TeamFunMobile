@@ -16,7 +16,7 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 
 const tableData = [
     ['Alarm Twenty', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
+    ['今天，国产大型客机C919计划从上海浦东机场到西安阎良机场转场飞行。这将是C919首次出“远门”，第一次远距离飞行，飞行里程超过1300公里，飞行时间约为3个小时。', 'NotAcked'],
     ['Alarm Ten', 'NotAcked'],
     ['Alarm Ten', 'NotAcked'],
     ['Alarm Ten', 'NotAcked'],
@@ -95,8 +95,8 @@ class AlarmList extends Component {
 const styles = StyleSheet.create({
     head: { height: 40, backgroundColor: '#3c3c3c' },
     headtext: { marginLeft: 5, color: '#fff', textAlign: 'center', fontWeight: 'bold' },
-    row: { height: 30, backgroundColor: '#550000' },
-    rowtext: { marginLeft: 5, color: '#fff', textAlign: 'center' },
+    row: {   backgroundColor: '#550000' },
+    rowtext: { marginLeft: 5, color: '#fff', textAlign: 'left' },
 })
 
 module.exports = AlarmList;
