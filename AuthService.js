@@ -67,7 +67,7 @@ class AuthService {
         formBody = formBody.join("&");
 
         console.log('login');
-        fetch('http://mobileservices20170819084039.azurewebsites.net/Token', {
+        fetch('http://*****************************/Token', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

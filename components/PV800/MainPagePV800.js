@@ -10,7 +10,8 @@ import {
     Alert,
     RefreshControl,
     FlatList,
-    TouchableOpacity
+    ActivityIndicator,
+    TouchableHighlight
 } from 'react-native';
 
 import images from '../images';
@@ -27,6 +28,7 @@ class MainPagePV800 extends React.Component {
 
         this.state = {
             refreshing: false,
+            showProgress: false,
             itemsource: ["Alarm List"],
             configData: ""
         };
@@ -40,11 +42,13 @@ class MainPagePV800 extends React.Component {
 
 
     componentDidMount() {
+        this.setState({ showProgress: true });
         Signalr.connect(this.props.navigation.state.params.data.Catalog,
             this.props.navigation.state.params.data.IP,
             ((data) => {
                 this.setState({
-                    configData: JSON.parse(data)
+                    configData: JSON.parse(data),
+                    showProgress: false
                 }, () => console.log('get-data-from-server:' + this.state.configData));
             }));
 
@@ -74,6 +78,8 @@ class MainPagePV800 extends React.Component {
     pressItem(item) {
         if (this.state.refreshing)
             return;
+        if (this.state.showProgress)
+            return;
         const { navigate } = this.props.navigation;
         if ("Alarm List" == item)
             navigate('PV800AlarmList', { data: this.props.navigation.state.params.data });
@@ -82,39 +88,43 @@ class MainPagePV800 extends React.Component {
     }
 
     _renderItem = ({ item }) => (
-        <TouchableOpacity onPress={_ => this.pressItem(item)}>
+        <TouchableHighlight onPress={_ => this.pressItem(item)}
+            disabled={this.state.showProgress}>
             <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1 }}>
                 <View style={{ paddingLeft: 20 }}>
                     <Text style={{ fontSize: 20 }}>
                         {item}
                     </Text>
-
                 </View>
             </View>
-        </TouchableOpacity>
+        </TouchableHighlight>
     );
 
     render() {
         //const item = this.props.navigation.state.params.data;
         return (
-            <View style={{ flex: 1, flexDirection: 'row', margin: 10 }}>
-                <AnimatedFlatList
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.refreshing}
-                            // onRefresh={this._onRefresh.bind(this)}
-                            colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
-                            progressBackgroundColor="#ffffff"
-                        />}
+            <View style={{ flex: 1 }}>
+                <ActivityIndicator animating={this.state.showProgress}
+                    size="large"
+                    style={styles.loader}>
+                </ActivityIndicator>
+                <View style={{ flex: 10, flexDirection: 'row', margin: 10 }}>
+                    <AnimatedFlatList
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                // onRefresh={this._onRefresh.bind(this)}
+                                colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
+                                progressBackgroundColor="#ffffff"
+                            />}
 
-                    data={this.state.itemsource}
-                    renderItem={this._renderItem}
-                    refreshing={false}
-                />
-            </View >
-
+                        data={this.state.itemsource}
+                        renderItem={this._renderItem}
+                        refreshing={false}
+                    />
+                </View >
+            </View>
         );
-
     }
 }
 
@@ -123,7 +133,10 @@ var styles = StyleSheet.create({
         height: 80,
         backgroundColor: 'black'
     },
-
+    loader: {
+        marginTop: -6,
+        flex: 1
+    },
 });
 
 module.exports = MainPagePV800;

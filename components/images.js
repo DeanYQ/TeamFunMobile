@@ -3,5 +3,6 @@ module.exports = {
      '2080-LC20-20QBB_Micro820' : require('../img/device/2080-LC20-20QBB_Micro820.png'),
      '440C' : require('../img/device/440C.png'),
      '2711R-T7T' : require('../img/device/2711R-T7T.png'),
-    /* etc... */
+     '2711R-T10T' : require('../img/device/2711R-T7T.png'),
+     /* etc... */
   };
