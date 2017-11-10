@@ -82,7 +82,7 @@ class MainPagePV800 extends React.Component {
             return;
         const { navigate } = this.props.navigation;
         if ("Alarm List" == item)
-            navigate('PV800AlarmList', { data: this.props.navigation.state.params.data });
+            navigate('PV800AlarmList', { data: this.props.navigation.state.params.data, configData:this.state.configData });
         //	else if ("Fault Log" == item)
         //		navigate('CR30FaultPage', {data: this.props.navigation.state.params.data});
     }

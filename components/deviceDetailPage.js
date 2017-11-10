@@ -46,7 +46,7 @@ class DeviceDetailPage extends React.Component {
         );
         }
 
-        if(item.Catalog.trim() === '2711R-T7T' || item.Catalog.trim() === '2711R-T10T' )
+        if(item.Catalog.trim() === '2711R-T7T' || item.Catalog.trim() === '2711R-T10T')
         {
             return (
             <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>

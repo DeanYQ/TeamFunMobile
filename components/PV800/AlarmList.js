@@ -59,8 +59,8 @@ class AlarmList extends Component {
         super(props);
         this.state = {
             responseData: null,
-            alarms: tableData
-            // alarms: props.navigation.state.params.alarms
+            //alarms: tableData
+            alarms: props.navigation.state.params.configData
         };
     }
 
