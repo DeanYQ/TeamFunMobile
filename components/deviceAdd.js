@@ -40,6 +40,7 @@ class DeviceAdd extends Component {
 
 
     validateIpAddress(ip) {
+        this.state.ipAddr = ip;
         var regexp = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
         var valid = regexp.test(ip);
 
@@ -90,24 +91,34 @@ class DeviceAdd extends Component {
         //    navigate("Home");
         //})
         //.done();
+        var params = {
+            Catalog: this.state.catalogId,
+            DeviceType: "999",
+            ProductType: "999",
+            Rev: '1.0',
+            IP: this.state.ipAddr
+        };
+        var formBody = [];
+        for (var property in params) {
+            var encodedKey = encodeURIComponent(property);
+            var encodedValue = encodeURIComponent(params[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        var data = formBody.join("&");
+        console.log(data);
         AuthService.getAuthInfo((err, info) => {
             var token = info;
             fetch(url, {
                 method: "POST",
                 headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
                     'Authorization': 'Bearer ' + token
                 },
-                body: JSON.stringify({
-                    Catalog: '440C',
-                    DeviceType: 2,
-                    ProductType: 3,
-                    Rev: 'sample string 4',
-                    IP: '192.168.100.100',
-                    Description: 'sample string 6'
-                })
+                body: data
             })
             .then((response) => {
                 this.setModalVisible(false);
+                Alert.alert("Success");
                 navigate("Home");
             })
             .done();
@@ -160,10 +171,10 @@ class DeviceAdd extends Component {
                     style={{ margin: 10 }}
                     selectedValue={this.state.catalogId}
                     onValueChange={(catalog) => this.setState({ catalogId: catalog })}>
-                    <Picker.Item label="CR30" value="CR30" />
+                    <Picker.Item label="CR30" value="440C" />
                     <Picker.Item label="Micro800" value="Micro800" />
-                    <Picker.Item label='Light Curtain' value="LightCurtain" />
-                    <Picker.Item label="PV800" value="PV800" />
+                    <Picker.Item label='Light Curtain' value="440L" />
+                    <Picker.Item label="PV800" value="2711R" />
                 </Picker>
                 <TextInput
                     style={styles.ipInput}
