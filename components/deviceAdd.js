@@ -15,8 +15,6 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-import ModalDropdown from 'react-native-modal-dropdown';
-import ModalPicker from 'react-native-modal-picker'
 import AuthService from '../AuthService';
 
 var items = ["Item 1", "Item 2"];
@@ -137,7 +135,8 @@ class DeviceAdd extends Component {
         //];
         //return (
         //    <View style={{ flex: 1, justifyContent: 'space-around', padding: 50 }}>
-        //
+        //import ModalPicker from 'react-native-modal-picker'
+
         //        <ModalPicker
         //            data={data}
         //            style={{height:100}}
