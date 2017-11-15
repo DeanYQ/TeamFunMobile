@@ -95,7 +95,7 @@ class AlarmList extends Component {
 const styles = StyleSheet.create({
     head: { height: 40, backgroundColor: '#3c3c3c' },
     headtext: { marginLeft: 5, color: '#fff', textAlign: 'center', fontWeight: 'bold' },
-    row: {   backgroundColor: '#550000' },
+    row: {   backgroundColor: '#550000', minHeight:30 },
     rowtext: { marginLeft: 5, color: '#fff', textAlign: 'left' },
 })
 
