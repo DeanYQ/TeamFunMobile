@@ -12,7 +12,7 @@ import {
 import images from './images';
 import MainPageCR30 from './CR30/MainPageCR30'
 import MainPagePV800 from './PV800/MainPagePV800'
-
+import MainPageCCW from './CCW/MainPageCCW'
 class DeviceDetailPage extends React.Component {
     constructor(props) {
         super(props);
@@ -32,8 +32,8 @@ class DeviceDetailPage extends React.Component {
 
         if(item.Catalog.trim() === '2080-LC20-20QBB_Micro820')
         {
-          return (
-            <View style={{ flex: 1, flexDirection: 'row',  backgroundColor: '#fff'}}>
+           return (
+            <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
                 <View style={{ flex: 1, alignItems: 'center', }}>
                     <View style={{
                         backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,marginTop: 10
@@ -42,6 +42,11 @@ class DeviceDetailPage extends React.Component {
                             style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
                     </View>
                 </View>
+
+                <View style={{ flex: 3 ,margin: -20}}>
+                  <MainPageCCW  navigation={this.props.navigation}/>
+                  </View>
+
             </View>
         );
         }

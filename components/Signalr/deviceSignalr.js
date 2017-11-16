@@ -1,6 +1,6 @@
 import signalr from 'react-native-signalr';
 
-const signalrUrl = 'http://******************.api.net/';
+const signalrUrl = 'http://mobileservices20171019105016.azurewebsites.net/';
 var proxy;
 var connection;
 

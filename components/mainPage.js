@@ -20,6 +20,8 @@ import ImageButton from './imageButton'
 import GeneralPage from './CR30/GeneralPage';
 import FaultPage from './CR30/FaultPage';
 import PV800AlarmList from './PV800/AlarmList';
+import CCWGeneralPage from './CCW/CCWGeneralPage'
+import DiagnosticPage from './CCW/DiagnosticPage'
 const onButtonPress = () => {
    //Alert.alert('Button has been pressed!');
 
@@ -115,7 +117,9 @@ const MainPage = StackNavigator({
     CR30GeneralPage:{screen:GeneralPage},
 	CR30FaultPage:{screen:FaultPage},
     DeviceAdd: {screen: DeviceAdd},
-    PV800AlarmList:{screen: PV800AlarmList}
+    PV800AlarmList:{screen: PV800AlarmList},
+    CCWGeneralPage:{screen: CCWGeneralPage},
+    DiagnosticPage:{screen:DiagnosticPage}
 })
  
 const styles = StyleSheet.create({
