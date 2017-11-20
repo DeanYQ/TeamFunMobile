@@ -30,7 +30,7 @@ class DeviceDetailPage extends React.Component {
     render() {
         const item = this.props.navigation.state.params.data;
 
-        if(item.Catalog.trim() === '2080-LC20-20QBB_Micro820')
+        if(item.Catalog.trim().indexOf("Micro") >= 0)
         {
            return (
             <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
@@ -38,7 +38,7 @@ class DeviceDetailPage extends React.Component {
                     <View style={{
                         backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,marginTop: 10
                     }}>
-                        <Image source={images[item.Catalog.trim()]}
+                        <Image source={images["Micro820"]}
                             style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
                     </View>
                 </View>

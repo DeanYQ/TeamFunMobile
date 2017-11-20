@@ -102,7 +102,7 @@ class HomePage extends Component {
                          renderSelectedIcon={() => <Image style={[styles.icon,{tintColor:'green'}]} source={require("../img/user.png")} />}
                          onPress={() => this.setState({ selectedTab: 'Me' })}>
                          <View style={styles.page0}>
-                             <Text style={{fontSize:18,padding:15,color: 'blue'}}>This is user Page</Text>
+                             <Text style={{fontSize:18,padding:15,color: 'blue'}}></Text>
                          </View>
                      </TabNavigator.Item>
                  </TabNavigator>

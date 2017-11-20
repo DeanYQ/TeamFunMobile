@@ -24,7 +24,7 @@ class DeviceAdd extends Component {
         super(props);
         this.state = {
             ipAddr: "",
-            catalogId: "",
+            catalogId: "440C",
             modalVisible: false,
             isBtnDisabled: true,
         };
@@ -171,9 +171,9 @@ class DeviceAdd extends Component {
                     selectedValue={this.state.catalogId}
                     onValueChange={(catalog) => this.setState({ catalogId: catalog })}>
                     <Picker.Item label="CR30" value="440C" />
-                    <Picker.Item label="Micro800" value="Micro800" />
-                    <Picker.Item label='Light Curtain' value="440L" />
-                    <Picker.Item label="PV800" value="2711R" />
+                    <Picker.Item label="Micro820" value="Micro820" />
+                    <Picker.Item label='Light Curtain' value="450L" />
+                    <Picker.Item label="2711R-T10T" value="2711R-T10T" />
                 </Picker>
                 <TextInput
                     style={styles.ipInput}
@@ -183,9 +183,9 @@ class DeviceAdd extends Component {
 
                 <View style={styles.buttonContainer}>
                     <Button
-                        //disabled={this.state.isBtnDisabled}
+                        disabled={this.state.isBtnDisabled}
                         onPress={this.addDevice.bind(this)}
-                        title="Search"
+                        title="Add Device"
                         style={{ height: 100 }}
                         color="#555555" />
                 </View>

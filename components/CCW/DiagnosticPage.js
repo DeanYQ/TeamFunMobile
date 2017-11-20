@@ -15,52 +15,18 @@ import {
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 const tableData = [
-    ['Alarm Twenty', 'NotAcked'],
-    ['今天，国产大型客机C919计划从上海浦东机场到西安阎良机场转场飞行。这将是C919首次出“远门”，第一次远距离飞行，飞行里程超过1300公里，飞行时间约为3个小时。', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],];
+    ['Mac Address', 'F4-54-33-9E-EE-53'],
+    ['Duplex Mode', 'Duplex'],
+    ['Port State', 'Enabled'],
+    ['POrt Speed', '100Mbps'],
+ ];
 
 class DiagnosticPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             responseData: null,
-            //alarms: tableData
-            alarms: props.navigation.state.params.configData
+            alarms: tableData
         };
     }
 
@@ -72,14 +38,8 @@ class DiagnosticPage extends Component {
     });
 
     render() {
-        const tableHead = ['Alarm Message', 'Ack Status'];
-        
-
         return (
             <View style={{ flex: 1 }}>
-                <Table>
-                    <Row data={tableHead} style={styles.head} flexArr={[2, 1]} textStyle={styles.headtext} />
-                </Table>
                 <ScrollView showsVerticalScrollIndicator={true} >
                     <Table>
                         <TableWrapper style={{ flexDirection: 'row' }}>
