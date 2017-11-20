@@ -40,16 +40,39 @@ class MainPageCR30 extends React.Component {
 
     componentDidMount() {
         this.setState({ showProgress: true });
-        Signalr.connect(this.props.navigation.state.params.data.Catalog,
-            this.props.navigation.state.params.data.IP,
-            ((data) => {
+        var proxy = this.props.navigation.state.params.proxy;
+
+        //   proxy.on('Uploaded', (data) => {
+        //         this.setState({
+        //             configData: JSON.parse(data),
+        //             showProgress: false
+        //         }, () => {
+        //             console.log('get-data-from-server:' + this.state.configData)
+        //         });
+        //     });
+
+        Signalr.Upload(this.props.navigation.state.params.proxy,
+            this.props.navigation.state.params.data.Catalog.trim(),
+            this.props.navigation.state.params.data.IP.trim(), (data) => {
                 this.setState({
                     configData: JSON.parse(data),
                     showProgress: false
                 }, () => {
                     console.log('get-data-from-server:' + this.state.configData)
                 });
-            }));
+            });
+           
+
+        // Signalr.connect(this.props.navigation.state.params.data.Catalog,
+        //     this.props.navigation.state.params.data.IP,
+        //     ((data) => {
+        //         this.setState({
+        //             configData: JSON.parse(data),
+        //             showProgress: false
+        //         }, () => {
+        //             console.log('get-data-from-server:' + this.state.configData)
+        //         });
+        //     }));
     }
 
     fetchData() {

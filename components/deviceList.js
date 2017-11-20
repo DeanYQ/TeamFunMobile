@@ -17,19 +17,33 @@ import ImageButton from './imageButton';
 import images from './images';
 import { StackNavigator, } from 'react-navigation';
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+import Signalr from './Signalr/deviceSignalr';
 
 class DeviceList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             refreshing: false,
-            itemsource: this.props.itemsource
+            signalrConnecting : false,
+            itemsource: this.props.itemsource,
+            proxy: null
         };
     }
 
     componentDidMount() {
+        this._signalrConnection();
         this._onRefresh();
     }
+
+    _signalrConnection(){
+        this.setState({ signalrConnecting: true });
+        
+        Signalr.connect(((callback) => {
+            this.setState({
+                signalrConnecting: false,
+                proxy:callback
+            }, () => console.log('get-data-from-server:' + this.state.proxy));
+        }));    }
 
     _onRefresh() {
         this.setState({ refreshing: true });
@@ -48,10 +62,12 @@ class DeviceList extends Component {
     }
 
     pressItem(item) {
+        if (this.state.proxy == null)
+            return;
         if (this.state.refreshing)
             return;
         const { navigate } = this.props.navigation;
-        navigate('Detail', {data: item});
+        navigate('Detail', { data: item, proxy: this.state.proxy });
     }
 
     _renderItem = ({ item }) => (
@@ -80,7 +96,7 @@ class DeviceList extends Component {
                 <AnimatedFlatList
                     refreshControl={
                         <RefreshControl
-                            refreshing={this.state.refreshing}
+                            refreshing={this.state.refreshing || this.state.signalrConnecting}
                             onRefresh={this._onRefresh.bind(this)}
                             colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
                             progressBackgroundColor="#ffffff"
