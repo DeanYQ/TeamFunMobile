@@ -43,33 +43,20 @@ class MainPagePV800 extends React.Component {
 
     componentDidMount() {
         this.setState({ showProgress: true });
-        Signalr.connect(this.props.navigation.state.params.data.Catalog,
-            this.props.navigation.state.params.data.IP,
-            ((data) => {
+
+        var proxy = this.props.navigation.state.params.proxy;
+
+        Signalr.Upload(this.props.navigation.state.params.proxy,
+            this.props.navigation.state.params.data.Catalog.trim(),
+            this.props.navigation.state.params.data.IP.trim(), (data) => {
                 this.setState({
                     configData: JSON.parse(data),
                     showProgress: false
-                }, () => console.log('get-data-from-server:' + this.state.configData));
-            }));
-
-        //   this._onRefresh();
+                }, () => {
+                    console.log('get-data-from-server:' + this.state.configData)
+                });
+            });
     }
-
-    // ConnectToAdapter(proxy){
-    //     Signalr.ConnectToAdapter(proxy,'440C');
-    // }
-
-    // _onRefresh() {
-    //    this.setState({ refreshing: true });
-
-    //  this.props.onRefresh((response) => {
-    //      this.setState({
-    //          itemsource: response,
-    //        refreshing: false
-    //     });
-    //      console.log(this.state.itemsource);
-    //   });
-    //  }
 
     fetchData() {
         return this.props.onRefresh();
@@ -82,9 +69,7 @@ class MainPagePV800 extends React.Component {
             return;
         const { navigate } = this.props.navigation;
         if ("Alarm List" == item)
-            navigate('PV800AlarmList', { data: this.props.navigation.state.params.data, configData:this.state.configData });
-        //	else if ("Fault Log" == item)
-        //		navigate('CR30FaultPage', {data: this.props.navigation.state.params.data});
+            navigate('PV800AlarmList', { data: this.props.navigation.state.params.data, configData: this.state.configData });
     }
 
     _renderItem = ({ item }) => (
@@ -101,7 +86,6 @@ class MainPagePV800 extends React.Component {
     );
 
     render() {
-        //const item = this.props.navigation.state.params.data;
         return (
             <View style={{ flex: 1 }}>
                 <ActivityIndicator animating={this.state.showProgress}

@@ -40,16 +40,18 @@ class MainPageCR30 extends React.Component {
 
     componentDidMount() {
         this.setState({ showProgress: true });
-        Signalr.connect(this.props.navigation.state.params.data.Catalog,
-            this.props.navigation.state.params.data.IP,
-            ((data) => {
+        var proxy = this.props.navigation.state.params.proxy;
+
+        Signalr.Upload(this.props.navigation.state.params.proxy,
+            this.props.navigation.state.params.data.Catalog.trim(),
+            this.props.navigation.state.params.data.IP.trim(), (data) => {
                 this.setState({
                     configData: JSON.parse(data),
                     showProgress: false
                 }, () => {
                     console.log('get-data-from-server:' + this.state.configData)
                 });
-            }));
+            });
     }
 
     fetchData() {
@@ -91,13 +93,6 @@ class MainPageCR30 extends React.Component {
                 </ActivityIndicator>
                 <View style={{ flex: 10, flexDirection: 'row', margin: 10 }}>
                     <AnimatedFlatList
-                        // refreshControl={
-                        //     <RefreshControl
-                        //         refreshing={this.state.refreshing}
-                        //         colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
-                        //         progressBackgroundColor="#ffffff"
-                        //     />}
-
                         data={this.state.itemsource}
                         renderItem={this._renderItem}
                         refreshing={false}
