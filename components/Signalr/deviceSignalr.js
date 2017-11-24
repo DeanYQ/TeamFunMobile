@@ -95,6 +95,11 @@ class DeviceSignalr {
     });
   }
 
+  DisconnectDevice(proxy, catalog, ip, cb) {
+    proxy.invoke('DisconnectDevice', catalog, ip).done(() => {
+      console.log('DisconnectDevice');
+    });
+  }
 }
 
 module.exports = new DeviceSignalr();

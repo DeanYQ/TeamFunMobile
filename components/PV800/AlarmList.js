@@ -13,53 +13,13 @@ import {
     View
 } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-
-const tableData = [
-    ['Alarm Twenty', 'NotAcked'],
-    ['今天，国产大型客机C919计划从上海浦东机场到西安阎良机场转场飞行。这将是C919首次出“远门”，第一次远距离飞行，飞行里程超过1300公里，飞行时间约为3个小时。', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],
-    ['Alarm Ten', 'NotAcked'],];
+import Signalr from '../Signalr/deviceSignalr.js';
 
 class AlarmList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             responseData: null,
-            //alarms: tableData
             alarms: props.navigation.state.params.configData
         };
     }
@@ -70,6 +30,25 @@ class AlarmList extends Component {
         headerTitleStyle: { color: '#fff' },
 
     });
+
+    componentDidMount() {
+        Signalr.StartDiagnostic(this.props.navigation.state.params.proxy,
+            this.props.navigation.state.params.data.Catalog.trim(),
+            this.props.navigation.state.params.data.IP.trim(), (data) => {
+                this.setState({
+                    alarms: JSON.parse(data)
+                }, () => {
+                    console.log('get-data-from-server:' + this.state.data)
+                });
+            });
+    }
+
+    componentWillUnmount(){
+        Signalr.StopDiagnostic(this.props.navigation.state.params.proxy,
+            this.props.navigation.state.params.data.Catalog.trim(),
+            this.props.navigation.state.params.data.IP.trim(), () => {});
+    }
+
 
     render() {
         const tableHead = ['Alarm Message', 'Ack Status'];

@@ -43,9 +43,6 @@ class MainPagePV800 extends React.Component {
 
     componentDidMount() {
         this.setState({ showProgress: true });
-
-        var proxy = this.props.navigation.state.params.proxy;
-
         Signalr.Upload(this.props.navigation.state.params.proxy,
             this.props.navigation.state.params.data.Catalog.trim(),
             this.props.navigation.state.params.data.IP.trim(), (data) => {
@@ -56,6 +53,12 @@ class MainPagePV800 extends React.Component {
                     console.log('get-data-from-server:' + this.state.configData)
                 });
             });
+    }
+
+    componentWillUnmount(){
+        Signalr.DisconnectDevice(this.props.navigation.state.params.proxy,
+            this.props.navigation.state.params.data.Catalog.trim(),
+            this.props.navigation.state.params.data.IP.trim(), () => {});
     }
 
     fetchData() {
@@ -69,7 +72,11 @@ class MainPagePV800 extends React.Component {
             return;
         const { navigate } = this.props.navigation;
         if ("Alarm List" == item)
-            navigate('PV800AlarmList', { data: this.props.navigation.state.params.data, configData: this.state.configData });
+            navigate('PV800AlarmList', { 
+                data: this.props.navigation.state.params.data, 
+                configData: this.state.configData,
+                proxy: this.props.navigation.state.params.proxy
+            });
     }
 
     _renderItem = ({ item }) => (
