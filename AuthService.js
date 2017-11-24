@@ -16,43 +16,11 @@ class AuthService {
                 return cb();
             }
             var authInfo = val[1][1];
-            // var authInfo = {
-            //     header: {
-            //         Authorization: 'Bearer ' + val[1][1]
-            //     },
-            //     user: JSON.parse(val[0][1])
-            // }
-            // var zippedObj = _.zipObject(val);
-            // val.map((result, i, store)=>{
-            //     let key = store[i][0];
-            //     let value = store[i][1];
-            // })
-
-            // if (!zippedObj[authKey]) {
-            //     return cb();
-            // }
-
-            // var authInfo = {
-            //     header: {
-            //         Authorization: 'Basic ' + zippedObj[authKey]
-            //     },
-            //     user: JSON.parse(zippedObj[userKey])
-            // }
-
             return cb(null, authInfo);
         });
     }
 
     login(creds, cb) {
-        // var b = new buffer.Buffer(creds.username +
-        //     ':' + creds.password);
-        // var encodedAuth = b.toString('base64');
-
-        // fetch('https://api.github.com/user',{
-        //     headers: {
-        //         'Authorization' : 'Basic ' + encodedAuth
-        //     }
-        // })
         var params = {
             username: creds.username,
             password: creds.password,
@@ -67,7 +35,7 @@ class AuthService {
         formBody = formBody.join("&");
 
         console.log('login');
-        fetch('http://*****************************/Token', {
+        fetch('http://mobileservices20170819084039.azurewebsites.net/Token', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -90,39 +58,6 @@ class AuthService {
                         });
                 }
             })
-
-        // .then((response)=> {
-        //     console.log('response.status: ' + response.status);
-        //     console.log('response.message: ' + response.message);
-        //     if(response.status >= 200 && response.status < 300){                
-        //         return response;
-        //     }
-        //     throw {                
-        //         badCredentials: response.status == 401,
-        //         unknownError: response.status != 401
-        //     }
-        // })
-        // .then((response)=> {
-        //     var responseJson = response.json();
-        //     console.log('response.json(): ' + JSON.stringify(responseJson));            
-        //     return responseJson;
-        // })
-        // .then((results)=> {
-        //     AsyncStorage.multiSet([
-        //         [authKey, formBody],
-        //         [userKey, JSON.stringify(results)]
-        //     ], (err)=> {
-        //         if(err){
-        //             throw err;
-        //         }
-
-        //         return cb({success: true});
-        //     })
-        // })
-        // .catch((err)=> {
-        //     console.log('catch:'+ err);
-        //     return cb(err);
-        // });
     }
 }
 

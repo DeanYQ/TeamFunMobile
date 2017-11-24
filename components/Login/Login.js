@@ -103,8 +103,9 @@ let styles = StyleSheet.create({
         height: 80
     },
     heading:{
-        fontSize:20,
+        fontSize:21,
         marginTop:10,
+        fontWeight: 'bold'
     },
     input:{
         height:50,
