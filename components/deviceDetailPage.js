@@ -13,6 +13,8 @@ import images from './images';
 import MainPageCR30 from './CR30/MainPageCR30'
 import MainPagePV800 from './PV800/MainPagePV800'
 import MainPageCCW from './CCW/MainPageCCW'
+import MainPage450L from './450L/MainPage450L';
+
 class DeviceDetailPage extends React.Component {
     constructor(props) {
         super(props);
@@ -95,7 +97,7 @@ class DeviceDetailPage extends React.Component {
         if(item.Catalog.trim() === '450L')
         {
             return (
-            <View style={{ flex: 1, flexDirection: 'row',backgroundColor: '#fff' }}>
+            <View style={{ flex: 1, flexDirection: 'column',backgroundColor: '#fff' }}>
                 <View style={{ flex: 1, alignItems: 'center', }}>
                     <View style={{
                         backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,marginTop: 10
@@ -104,6 +106,9 @@ class DeviceDetailPage extends React.Component {
                             style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
                     </View>
                 </View>
+                <View style={{ flex: 3 ,margin: -20}}>
+                  <MainPage450L  navigation={this.props.navigation}/>
+                  </View>
             </View>
         );
         }
