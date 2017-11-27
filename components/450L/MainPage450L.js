@@ -54,6 +54,12 @@ class MainPage450L extends React.Component {
             });
     }
 
+    componentWillUnmount(){
+        Signalr.DisconnectDevice(this.props.navigation.state.params.proxy,
+            this.props.navigation.state.params.data.Catalog.trim(),
+            this.props.navigation.state.params.data.IP.trim(), () => {});
+    }
+
     fetchData() {
         return this.props.onRefresh();
     }
