@@ -92,6 +92,7 @@ class DeviceSignalr {
   StopDiagnostic(proxy, catalog, ip, cb) {
     proxy.invoke('StopDiagnostic', catalog, ip).done(() => {
       console.log('StopDiagnostic');
+      proxy.off('Diagnostic', () => {});
     });
   }
 

@@ -8,9 +8,31 @@ import {
     Button,
     TextInput,
     Alert,
-    FlatList
+    FlatList,
+    ScrollView
 } from 'react-native';
 import Signalr from '../Signalr/deviceSignalr.js';
+
+import 'react';
+import Svg, {
+    Circle,
+    Ellipse,
+    G,
+    LinearGradient,
+    RadialGradient,
+    Line,
+    Path,
+    Polygon,
+    Polyline,
+    Rect,
+    Symbol,
+    // Text,
+    Use,
+    Defs,
+    Stop
+} from 'react-native-svg';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
 
 class DiagnosePage extends React.Component {
 
@@ -18,7 +40,9 @@ class DiagnosePage extends React.Component {
         super(props);
         this.state = {
             First: 0,
-            Last: 0
+            Last: 0,
+            Total: 0,
+            diagnoseData: null
         };
     }
     static navigationOptions = ({ navigation, screenProps }) => ({
@@ -33,63 +57,53 @@ class DiagnosePage extends React.Component {
             this.props.navigation.state.params.data.IP.trim(), (data) => {
                 this.setState({
                     First: JSON.parse(data).First,
-                    Last: JSON.parse(data).Last
+                    Last: JSON.parse(data).Last,
+                    Total: JSON.parse(data).Total,
+                    diagnoseData: JSON.parse(data)
                 }, () => {
-                    console.log('get-data-from-server:' + this.state.First)
+                    console.log('get-data-from-server:' + this.state.diagnoseData)
                 });
             });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         Signalr.StopDiagnostic(this.props.navigation.state.params.proxy,
             this.props.navigation.state.params.data.Catalog.trim(),
-            this.props.navigation.state.params.data.IP.trim(), () => {});
+            this.props.navigation.state.params.data.IP.trim(), () => { });
     }
 
     render() {
-
+        const tableHead = ['Name', 'Value'];
         return (
-            <View style={{ flexDirection: 'row', backgroundColor: '#fff', paddingBottom: 300 }}>
-            <View style={{ flexDirection: 'column', backgroundColor: '#fff', paddingBottom: 300 }}>
-                <Text>{this.state.First}</Text>
-                <Text>{this.state.Last}</Text>
+            <View style={{ backgroundColor: '#fff', paddingBottom: 300 }}>
+                <View style={{ height:100 }}>
+                    <Svg height="80" width="400">
+                        <Rect
+                            x="30"
+                            y="10"
+                            width="300"
+                            height="70"
+                            stroke="red"
+                            strokeWidth="2"
+                            fill="green"
+                        />
+                        <Rect
+                            x={30 + this.state.First * (300 / this.state.Total)}
+                            y="12"
+                            width={(this.state.Last - this.state.First) * (300 / this.state.Total)}
+                            height="66"
+                            stroke="black"
+                            strokeWidth="2"
+                            fill="black"
+                        />
+                    </Svg>
                 </View>
-                {/* <View style={{ flexDirection: 'row', margin: 10 }}>
-                    <Text style={styles.textStyle}>Name:</Text>
-                    <TextInput underlineColorAndroid='transparent' style={styles.input} value={this.props.navigation.state.params.configData.General.DeviceName} />
+                <View>
+                    <Text style={{fontSize: 20}}>Total lens:             {this.state.Total}</Text>
+                    <Text style={{fontSize: 20}}>First interrupted lens: {this.state.First}</Text>
+                    <Text style={{fontSize: 20}}>Last interrupted lens:  {this.state.Last}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', margin: 10 }}>
-                    <Text style={styles.textStyle}>
-                        Description:
-                    </Text>
-                    <TextInput style={styles.descriptionInput} underlineColorAndroid='transparent' value={this.props.navigation.state.params.configData.General.Description} />
-                </View>
-                <View style={{ flexDirection: 'row', margin: 10 }}>
-                    <Text style={styles.textStyle}>
-                        Vendor:
-                      </Text>
-                    <Text style={styles.textStyle}>
-                        Allen-Bradley
-                        </Text>
-                </View>
-                <View style={{ flexDirection: 'row', margin: 10 }}>
-                    <Text style={styles.textStyle}>
-                        Catalog ID:
-                      </Text>
-                    <Text style={styles.textStyle}>
-                        {this.props.navigation.state.params.configData.General.CatalogID}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row', margin: 10 }}>
-                    <Text style={styles.textStyle}>
-                        Firmware revision:
-                      </Text>
-                    <Text style={styles.textStyle}>
-                        10
-                        </Text>
-                </View> */}
             </View>
-
         );
     }
 }
@@ -128,7 +142,12 @@ var styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: 'white',
         flex: 2
-    }
+    },
+    head: { height: 40, backgroundColor: '#3c3c3c' },
+    headtext: { marginLeft: 5, color: '#fff', textAlign: 'center', fontWeight: 'bold' },
+    row: { backgroundColor: '#550000', minHeight: 30 },
+    rowtext: { marginLeft: 5, color: '#fff', textAlign: 'left' },
+
 });
 
 module.exports = DiagnosePage;
