@@ -98,7 +98,7 @@ class DiagnosePage extends React.Component {
                         />
                     </Svg>
                 </View>
-                <View>
+                <View  style={{ marginLeft: 20 }}>
                     <Text style={{fontSize: 20}}>Total lens:             {this.state.Total}</Text>
                     <Text style={{fontSize: 20}}>First interrupted lens: {this.state.First}</Text>
                     <Text style={{fontSize: 20}}>Last interrupted lens:  {this.state.Last}</Text>
