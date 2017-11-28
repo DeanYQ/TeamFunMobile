@@ -16,36 +16,43 @@ import {
 import ImageButton from './imageButton';
 import images from './images';
 import { StackNavigator, } from 'react-navigation';
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+// const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 import Signalr from './Signalr/deviceSignalr';
+import Swipeable from 'react-native-swipeable';
+import AuthService from '../AuthService';
 
 class DeviceList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             refreshing: false,
-            signalrConnecting : false,
+            rerender: false,
+            currentlyOpenSwipeable: null,
+            signalrConnecting: false,
             itemsource: this.props.itemsource,
-            proxy: null
+            proxy: null,
+            clientId: null
         };
     }
 
     componentDidMount() {
         this._signalrConnection();
-        this._onRefresh();
+        this._onRefresh(()=>{});
     }
 
-    _signalrConnection(){
+    _signalrConnection() {
         this.setState({ signalrConnecting: true });
-        
-        Signalr.connect(((callback) => {
+
+        Signalr.connect(((callback, Id) => {
             this.setState({
                 signalrConnecting: false,
-                proxy:callback
+                proxy: callback,
+                clientId: Id
             }, () => console.log('get-data-from-server:' + this.state.proxy));
-        }));    }
+        }));
+    }
 
-    _onRefresh() {
+    _onRefresh(cb) {
         this.setState({ refreshing: true });
 
         this.props.onRefresh((response) => {
@@ -54,11 +61,12 @@ class DeviceList extends Component {
                 refreshing: false
             });
             console.log(this.state.itemsource);
+            cb();
         });
     }
 
     fetchData() {
-        return this.props.onRefresh();
+        return this.props.onRefresh(()=>{});
     }
 
     pressItem(item) {
@@ -68,6 +76,24 @@ class DeviceList extends Component {
             return;
         const { navigate } = this.props.navigation;
         navigate('Detail', { data: item, proxy: this.state.proxy });
+    }
+
+    deleteItem(item) {
+        if (this.state.proxy == null)
+            return;
+        if (this.state.refreshing)
+            return;
+        Signalr.DeleteDevice(this.state.proxy,
+            this.state.clientId,
+            item.Catalog.trim(),
+            item.IP.trim(), () => {
+                console.log("device deleted");
+                this._onRefresh(() => {
+                this.setState({
+                    rerender: true
+                });
+            });
+            });
     }
 
     _renderItem = ({ item }) => {
@@ -86,26 +112,35 @@ class DeviceList extends Component {
         } else if (catalog.indexOf("2711R-T10T") >= 0) {
             imageSrc = images["2711R-T10T"];
         }
-        
-        if(imageSrc!=""){
+
+        if (imageSrc != "") {
             return (
-                <TouchableOpacity onPress={_ => this.pressItem(item)}>
-                    <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
-                        <Image source={imageSrc} style={{ height: 50, width: 50, padding: 20, margin: 5 }}>
-                        </Image>
-                        <View style={{ paddingLeft: 20 }}>
-                            <Text style={{ fontSize: 20 }}>
-                                {item.Catalog}
-                            </Text>
-                            <Text style={{ fontSize: 15 }}>
-                                IP Address: {item.IP}
-                            </Text>
-                            <Text style={{ fontSize: 15 }}>
-                                Rev: {item.Rev}
-                            </Text>
+                <Swipeable
+                    rightButtons={[
+                        <TouchableOpacity style={[styles.rightSwipeItem, { backgroundColor: 'red' }]}
+                            onPress={_ => this.deleteItem(item)}>
+                            <Text style={{ color: 'white', fontWeight: 'bold' }}>Delete</Text>
+                        </TouchableOpacity>,
+                    ]}
+                >
+                    <TouchableOpacity onPress={_ => this.pressItem(item)}>
+                        <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
+                            <Image source={imageSrc} style={{ height: 50, width: 50, padding: 20, margin: 5 }}>
+                            </Image>
+                            <View style={{ paddingLeft: 20 }}>
+                                <Text style={{ fontSize: 20 }}>
+                                    {item.Catalog}
+                                </Text>
+                                <Text style={{ fontSize: 15 }}>
+                                    IP Address: {item.IP}
+                                </Text>
+                                <Text style={{ fontSize: 15 }}>
+                                    Rev: {item.Rev}
+                                </Text>
+                            </View>
                         </View>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                </Swipeable>
             )
         }
     };
@@ -113,7 +148,7 @@ class DeviceList extends Component {
     render() {
         return (
             <View style={{ justifyContent: 'flex-start' }}>
-                <AnimatedFlatList
+                <FlatList 
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing || this.state.signalrConnecting}
@@ -123,6 +158,7 @@ class DeviceList extends Component {
                         />}
 
                     data={this.state.itemsource}
+                    extraData={this.state.rerender}
                     renderItem={this._renderItem}
                     refreshing={false}
                 />
@@ -140,6 +176,17 @@ var styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
     pageTitle: {
+    },
+    leftSwipeItem: {
+        flex: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        paddingRight: 20
+    },
+    rightSwipeItem: {
+        flex: 1,
+        justifyContent: 'center',
+        paddingLeft: 20
     }
 });
 

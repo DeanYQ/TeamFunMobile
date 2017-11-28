@@ -22,7 +22,7 @@ class DeviceSignalr {
     // atempt connection, and handle errors
     this.connection.start().done(() => {
       console.log('Now connected, connection ID=' + this.connection.id);
-      cb(this.proxy);
+      cb(this.proxy, this.connection.id);
       this.ConnectToAdapter();
     }).fail(() => {
       console.log('Failed');
@@ -92,6 +92,18 @@ class DeviceSignalr {
   StopDiagnostic(proxy, catalog, ip, cb) {
     proxy.invoke('StopDiagnostic', catalog, ip).done(() => {
       console.log('StopDiagnostic');
+      proxy.off('Diagnostic', () => { });
+    });
+  }
+
+  DeleteDevice(proxy, clientId, catalog, ip, cb) {
+    proxy.on('DeletedDevice', (data) => {
+      console.log('DeletedDevice', data);
+      return cb();
+    });
+
+    proxy.invoke('DeleteDevice', clientId, catalog, ip).done(() => {
+      console.log('DeleteDevice');
     });
   }
 
