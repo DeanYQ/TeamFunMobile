@@ -97,13 +97,9 @@ class DeviceSignalr {
   }
 
   DeleteDevice(proxy, clientId, catalog, ip, cb) {
-    proxy.on('DeletedDevice', (data) => {
-      console.log('DeletedDevice', data);
-      return cb();
-    });
-
     proxy.invoke('DeleteDevice', clientId, catalog, ip).done(() => {
       console.log('DeleteDevice');
+      return cb();
     });
   }
 

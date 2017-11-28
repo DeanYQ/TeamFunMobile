@@ -37,7 +37,7 @@ class DeviceList extends Component {
 
     componentDidMount() {
         this._signalrConnection();
-        this._onRefresh(()=>{});
+        this._onRefresh();
     }
 
     _signalrConnection() {
@@ -52,7 +52,7 @@ class DeviceList extends Component {
         }));
     }
 
-    _onRefresh(cb) {
+    _onRefresh() {
         this.setState({ refreshing: true });
 
         this.props.onRefresh((response) => {
@@ -61,12 +61,11 @@ class DeviceList extends Component {
                 refreshing: false
             });
             console.log(this.state.itemsource);
-            cb();
         });
     }
 
     fetchData() {
-        return this.props.onRefresh(()=>{});
+        return this.props.onRefresh();
     }
 
     pressItem(item) {
@@ -88,11 +87,20 @@ class DeviceList extends Component {
             item.Catalog.trim(),
             item.IP.trim(), () => {
                 console.log("device deleted");
-                this._onRefresh(() => {
-                this.setState({
-                    rerender: true
+                this.setState({ refreshing: true });
+                this.props.onRefresh((response) => {
+                    this.setState({
+                        itemsource: null,
+                        rerender: true
+                    });
+
+                    this.setState({
+                        itemsource: response,
+                        refreshing: false,
+                        rerender: true
+                    });
+                    console.log(this.state.itemsource);
                 });
-            });
             });
     }
 
@@ -148,7 +156,7 @@ class DeviceList extends Component {
     render() {
         return (
             <View style={{ justifyContent: 'flex-start' }}>
-                <FlatList 
+                <FlatList
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing || this.state.signalrConnecting}
