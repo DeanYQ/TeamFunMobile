@@ -27,7 +27,7 @@ class MainPageCCW extends React.Component {
         this.state = {
             refreshing: false,
             showProgress: false,
-            itemsource: ["General", "Diagnostic"],
+            itemsource: ["General", "Diagnostic", "SerialPort", "Usb", "Modbus"],
             configData: ""
         };
     }

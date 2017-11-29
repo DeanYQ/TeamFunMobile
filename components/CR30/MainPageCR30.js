@@ -26,7 +26,7 @@ class MainPageCR30 extends React.Component {
         this.state = {
             refreshing: false,
             showProgress: false,
-            itemsource: ["General", "Fault Log"],
+            itemsource: ["General", "Fault Log", "SerialPort", "Usb", "Modbus"],
             configData: ""
         };
     }
@@ -78,7 +78,6 @@ class MainPageCR30 extends React.Component {
                     <Text style={{ fontSize: 20 }}>
                         {item}
                     </Text>
-
                 </View>
             </View>
         </TouchableHighlight>
