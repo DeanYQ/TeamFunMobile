@@ -69,6 +69,12 @@ class MainPageCCW extends React.Component {
             navigate('CCWGeneralPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
         else if ("Diagnostic" == item)
             navigate('DiagnosticPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
+        else if ("SerialPort" == item)
+            navigate('SerialPortPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
+        else if ("Usb" == item)
+            navigate('UsbPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
+        else if ("Modbus" == item)
+            navigate('ModbusPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
     }
 
     _renderItem = ({ item }) => (

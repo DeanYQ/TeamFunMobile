@@ -68,6 +68,12 @@ class MainPageCR30 extends React.Component {
             navigate('CR30GeneralPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
         else if ("Fault Log" == item)
             navigate('CR30FaultPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
+        else if ("SerialPort" == item)
+            navigate('SerialPortPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
+        else if ("Usb" == item)
+            navigate('UsbPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
+        else if ("Modbus" == item)
+            navigate('ModbusPage', { data: this.props.navigation.state.params.data, configData: this.state.configData });
     }
 
     _renderItem = ({ item }) => (
