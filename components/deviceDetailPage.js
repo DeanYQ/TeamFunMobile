@@ -38,10 +38,10 @@ class DeviceDetailPage extends React.Component {
             <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
                 <View style={{ flex: 1, alignItems: 'center', }}>
                     <View style={{
-                        backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,marginTop: 10
+                        backgroundColor: 'grey', width: 100,borderRadius:100, height: 100, marginTop: 10
                     }}>
-                        <Image source={images["Micro820"]}
-                            style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
+                        <Image source={images["Micro820"]} 
+                            style={{ width: 96, height: 96,borderRadius:50,  margin: 2 }} />
                     </View>
                 </View>
 
@@ -62,7 +62,7 @@ class DeviceDetailPage extends React.Component {
                         backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,marginTop: 10
                     }}>
                         <Image source={images[item.Catalog.trim()]}
-                            style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
+                            style={{ width: 96, height: 96, borderRadius: 50, margin: 2 }} />
                     </View>
                 </View>
 
@@ -83,7 +83,7 @@ class DeviceDetailPage extends React.Component {
                         backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,marginTop: 10
                     }}>
                         <Image source={images[item.Catalog.trim()]}
-                            style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
+                            style={{ width: 96, height: 96, borderRadius: 50, margin: 2 }} />
                     </View>
                 </View>
 
@@ -103,7 +103,7 @@ class DeviceDetailPage extends React.Component {
                         backgroundColor: 'grey', width: 100, height: 100, borderRadius: 100,marginTop: 10
                     }}>
                         <Image source={images[item.Catalog.trim()]}
-                            style={{ width: 96, height: 96, borderRadius: 100, margin: 2 }} />
+                            style={{ width: 96, height: 96, borderRadius: 50, margin: 2 }} />
                     </View>
                 </View>
                 <View style={{ flex: 3 ,margin: -20}}>
