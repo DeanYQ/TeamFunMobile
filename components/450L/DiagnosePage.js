@@ -75,8 +75,8 @@ class DiagnosePage extends React.Component {
     render() {
         const tableHead = ['Name', 'Value'];
         return (
-            <View style={{ backgroundColor: '#fff', paddingBottom: 300 }}>
-                <View style={{ height:100 }}>
+            <View style={{ flex: 1, backgroundColor: '#fff', paddingBottom: 300 }}>
+                <View style={{ flex: 1, height: 100 }}>
                     <Svg height="80" width="400">
                         <Rect
                             x="30"
@@ -98,10 +98,23 @@ class DiagnosePage extends React.Component {
                         />
                     </Svg>
                 </View>
-                <View  style={{ marginLeft: 20 }}>
-                    <Text style={{fontSize: 20}}>Total lens:             {this.state.Total}</Text>
-                    <Text style={{fontSize: 20}}>First interrupted lens: {this.state.First}</Text>
-                    <Text style={{fontSize: 20}}>Last interrupted lens:  {this.state.Last}</Text>
+                <View style={{
+                    flex: 1,
+                    marginLeft: 20,
+                    marginRight: 20, borderColor: 'black', borderWidth: 2
+                }}>
+                    <View style={{ flex: 1, flexDirection: 'row', borderColor: 'black', borderBottomWidth: 1 }}>
+                        <Text style={{ fontSize: 20, flex: 2, paddingLeft: 10, borderColor: 'black', borderWidth: 1 }}>Total lens</Text>
+                        <Text style={{ fontSize: 20, flex: 1, paddingLeft: 10, borderColor: 'black', borderWidth: 1 }}>{this.state.Total}</Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row', borderColor: 'black', borderBottomWidth: 1 }}>
+                        <Text style={{ fontSize: 20, flex: 2, paddingLeft: 10, borderColor: 'black', borderWidth: 1 }}>First interrupted lens</Text>
+                        <Text style={{ fontSize: 20, flex: 1, paddingLeft: 10, borderColor: 'black', borderWidth: 1 }}>{this.state.First}</Text>
+                    </View>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 20, flex: 2, paddingLeft: 10, borderColor: 'black', borderWidth: 1 }}>Last interrupted lens</Text>
+                        <Text style={{ fontSize: 20, flex: 1, paddingLeft: 10, borderColor: 'black', borderWidth: 1 }}>{this.state.Last}</Text>
+                    </View>
                 </View>
             </View>
         );
