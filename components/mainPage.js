@@ -122,7 +122,6 @@ class HomePage extends Component {
 const MainPage = StackNavigator({
     Home: { screen: HomePage },
     Detail: { screen: DeviceDetailPage },
-<<<<<<< HEAD
     CR30GeneralPage:{screen:GeneralPage},
     CR30FaultPage:{screen:FaultPage},
     CL450LGeneralPage:{screen:CL450LGeneralPage},
@@ -132,20 +131,10 @@ const MainPage = StackNavigator({
     DataLogPV800:{screen:DataLogPV800},
     GeneralPagePV800:{screen:GeneralPagePV800},
     CCWGeneralPage:{screen: CCWGeneralPage},
-    DiagnosticPage:{screen:DiagnosticPage}
-=======
-    CR30GeneralPage: { screen: GeneralPage },
-    CR30FaultPage: { screen: FaultPage },
-    CL450LGeneralPage: { screen: CL450LGeneralPage },
-    CL450LDiagnosePage: { screen: CL450LDiagnosePage },
-    DeviceAdd: { screen: DeviceAdd },
-    PV800AlarmList: { screen: PV800AlarmList },
-    CCWGeneralPage: { screen: CCWGeneralPage },
-    DiagnosticPage: { screen: DiagnosticPage },
+    DiagnosticPage:{screen:DiagnosticPage},
     SerialPortPage: {screen: SerialPortPage},
     ModbusPage: {screen: ModbusPage},
     UsbPage: {screen: UsbPage},
->>>>>>> 82910568e1e38c230281de2e45ce4c9c3a6ce674
 })
 
 const styles = StyleSheet.create({
