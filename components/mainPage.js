@@ -7,12 +7,14 @@ import {
     View,
     Image,
     Button,
-    Alert
+    Alert,
+    TouchableHighlight,
+    TouchableOpacity
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator'
 import { StackNavigator } from 'react-navigation'
-
+import Setting from './Settings/Setting';
 import DeviceDetailPage from './deviceDetailPage';
 import DeviceTab from './deviceTab'
 import DeviceAdd from './deviceAdd'
@@ -30,7 +32,7 @@ import DiagnosticPage from './CCW/DiagnosticPage'
 import SerialPortPage from './Common/SerialPortPage'
 import ModbusPage from './Common/ModBus'
 import UsbPage from './Common/UsbPage'
-
+import Signalr from './Signalr/deviceSignalr';
 const onButtonPress = () => {
     //Alert.alert('Button has been pressed!');
 
@@ -86,6 +88,9 @@ class HomePage extends Component {
         navigate('DeviceAdd', { navigation: target.props.navigation });
     }
 
+
+
+
     render() {
         return (
             <View style={styles.container}>
@@ -110,8 +115,22 @@ class HomePage extends Component {
                         renderIcon={() => <Image style={styles.icon} source={require("../img/user.png")} />}
                         renderSelectedIcon={() => <Image style={[styles.icon, { tintColor: 'green' }]} source={require("../img/user.png")} />}
                         onPress={() => this.setState({ selectedTab: 'Me' })}>
-                        <View style={styles.page0}>
-                            <Text style={{ fontSize: 18, padding: 15, color: 'blue' }}></Text>
+                        <View>
+                            <Setting/>
+                            {/* <Text>Signalr.isConnected: {global.Signalr != null && global.Signalr.isConnected() ? "Connected" : "Disconnected"}</Text>
+                            <TouchableOpacity onPress={this.disconnect()}>
+                                <Text>"Disconnect"</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.connect()}>
+                                <Text>"Connect"</Text>
+                            </TouchableOpacity> */}
+                            {/* <TouchableHighlight onPress={global.Signalr != null && global.Signalr.isConnected() ?
+                                global.Signalr.disconnect() :
+                                global.Signalr.connect(() => { })}>
+                                <Text>
+                                    {global.Signalr != null && global.Signalr.isConnected() ? "Disconnect" : "Connect"}
+                                </Text>
+                            </TouchableHighlight> */}
                         </View>
                     </TabNavigator.Item>
                 </TabNavigator>
@@ -119,24 +138,23 @@ class HomePage extends Component {
         );
     }
 }
-
 const MainPage = StackNavigator({
     Home: { screen: HomePage },
     Detail: { screen: DeviceDetailPage },
-    CR30GeneralPage:{screen:GeneralPage},
-    CR30FaultPage:{screen:FaultPage},
-    CL450LGeneralPage:{screen:CL450LGeneralPage},
-    CL450LDiagnosePage:{screen:CL450LDiagnosePage},
-    DeviceAdd: {screen: DeviceAdd},
-    PV800AlarmList:{screen: PV800AlarmList},
+    CR30GeneralPage: { screen: GeneralPage },
+    CR30FaultPage: { screen: FaultPage },
+    CL450LGeneralPage: { screen: CL450LGeneralPage },
+    CL450LDiagnosePage: { screen: CL450LDiagnosePage },
+    DeviceAdd: { screen: DeviceAdd },
+    PV800AlarmList: { screen: PV800AlarmList },
     PV800Trend: { screen: PV800Trend },
-    DataLogPV800:{screen:DataLogPV800},
-    GeneralPagePV800:{screen:GeneralPagePV800},
-    CCWGeneralPage:{screen: CCWGeneralPage},
-    DiagnosticPage:{screen:DiagnosticPage},
-    SerialPortPage: {screen: SerialPortPage},
-    ModbusPage: {screen: ModbusPage},
-    UsbPage: {screen: UsbPage},
+    DataLogPV800: { screen: DataLogPV800 },
+    GeneralPagePV800: { screen: GeneralPagePV800 },
+    CCWGeneralPage: { screen: CCWGeneralPage },
+    DiagnosticPage: { screen: DiagnosticPage },
+    SerialPortPage: { screen: SerialPortPage },
+    ModbusPage: { screen: ModbusPage },
+    UsbPage: { screen: UsbPage },
 })
 
 const styles = StyleSheet.create({

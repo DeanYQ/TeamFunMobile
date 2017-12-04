@@ -1,10 +1,16 @@
 import signalr from 'react-native-signalr';
 
 const signalrUrl = 'http://mobileservices20171019105016.azurewebsites.net/';
-var proxy;
-var connection;
+// static proxy;
+// static connection;
 
 class DeviceSignalr {
+  static proxy;
+  static connection;
+  isConnected() {
+    return this.connection.logging;
+  }
+
   connect(cb) {
     //This is the server under /example/server published on azure.
     this.connection = signalr.hubConnection(signalrUrl);
@@ -49,6 +55,7 @@ class DeviceSignalr {
 
   disconnect() {
     this.connection.disconnect();
+    this.connection.logging = false;
   }
 
   ConnectToAdapter() {
