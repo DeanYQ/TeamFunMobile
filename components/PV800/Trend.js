@@ -28,7 +28,7 @@ class Trend extends Component {
     }
 
     static navigationOptions = ({ navigation, screenProps }) => ({
-        title: navigation.state.params.data.Catalog.trim(),
+        title: navigation.state.params.configData.TagList[0].Name.trim(),
         headerStyle: { backgroundColor: '#960000', },
         headerTitleStyle: { color: '#fff' },
 
@@ -74,7 +74,7 @@ class Trend extends Component {
 
         return (
             <View style={{ flex: 1, marginLeft: 20, marginRight: 20 }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', marginTop: 10 }}>{this.state.TagName}</Text>
+                {/* <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', marginTop: 10 }}>{this.state.TagName}</Text> */}
                 <View style={{ flex: 10, height: 300, flexDirection: 'row' }}>
                     <YAxis
                         dataPoints={data}
