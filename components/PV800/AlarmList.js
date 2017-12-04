@@ -20,7 +20,7 @@ class AlarmList extends Component {
         super(props);
         this.state = {
             responseData: null,
-            alarms: props.navigation.state.params.configData
+            alarms: props.navigation.state.params.configData.AlarmList
         };
     }
 
@@ -36,7 +36,7 @@ class AlarmList extends Component {
             this.props.navigation.state.params.data.Catalog.trim(),
             this.props.navigation.state.params.data.IP.trim(), (data) => {
                 this.setState({
-                    alarms: JSON.parse(data)
+                    alarms: JSON.parse(data).AlarmList
                 }, () => {
                     console.log('get-data-from-server:' + this.state.data)
                 });
