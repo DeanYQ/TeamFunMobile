@@ -17,6 +17,9 @@ import {
 import images from '../images';
 import { StackNavigator, } from 'react-navigation';
 import Signalr from '../Signalr/deviceSignalr.js';
+import GeneralPagePV800 from './GeneralPagePV800';
+import DataLogPV800 from './DataLogPV800'
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 class MainPagePV800 extends React.Component {
@@ -29,7 +32,7 @@ class MainPagePV800 extends React.Component {
         this.state = {
             refreshing: false,
             showProgress: false,
-            itemsource: ["Alarm List", "Trend"],
+            itemsource: ["General","Alarm List","DataLog", "Trend"],
             configData: ""
         };
     }
@@ -71,6 +74,14 @@ class MainPagePV800 extends React.Component {
         if (this.state.showProgress)
             return;
         const { navigate } = this.props.navigation;
+
+        if("General" == item)
+        navigate('GeneralPagePV800',{ 
+                data: this.props.navigation.state.params.data, 
+                configData: this.state.configData,
+                proxy: this.props.navigation.state.params.proxy
+            });
+
         if ("Alarm List" == item)
             navigate('PV800AlarmList', { 
                 data: this.props.navigation.state.params.data, 
@@ -80,6 +91,12 @@ class MainPagePV800 extends React.Component {
             else if ("Trend" == item)
             navigate('PV800Trend', { 
                 data: this.props.navigation.state.params.data, 
+                configData: this.state.configData,
+                proxy: this.props.navigation.state.params.proxy
+            });
+            else if ("DataLog" == item)
+            navigate('DataLogPV800', { 
+              data: this.props.navigation.state.params.data,
                 configData: this.state.configData,
                 proxy: this.props.navigation.state.params.proxy
             });

@@ -23,6 +23,8 @@ import CL450LDiagnosePage from './450L/DiagnosePage';
 import FaultPage from './CR30/FaultPage';
 import PV800AlarmList from './PV800/AlarmList';
 import PV800Trend from './PV800/Trend';
+import GeneralPagePV800 from './PV800/GeneralPagePV800';
+import DataLogPV800 from './PV800/DataLogPV800';
 import CCWGeneralPage from './CCW/CCWGeneralPage'
 import DiagnosticPage from './CCW/DiagnosticPage'
 import SerialPortPage from './Common/SerialPortPage'
@@ -121,15 +123,17 @@ class HomePage extends Component {
 const MainPage = StackNavigator({
     Home: { screen: HomePage },
     Detail: { screen: DeviceDetailPage },
-    CR30GeneralPage: { screen: GeneralPage },
-    CR30FaultPage: { screen: FaultPage },
-    CL450LGeneralPage: { screen: CL450LGeneralPage },
-    CL450LDiagnosePage: { screen: CL450LDiagnosePage },
-    DeviceAdd: { screen: DeviceAdd },
-    PV800AlarmList: { screen: PV800AlarmList },
+    CR30GeneralPage:{screen:GeneralPage},
+    CR30FaultPage:{screen:FaultPage},
+    CL450LGeneralPage:{screen:CL450LGeneralPage},
+    CL450LDiagnosePage:{screen:CL450LDiagnosePage},
+    DeviceAdd: {screen: DeviceAdd},
+    PV800AlarmList:{screen: PV800AlarmList},
     PV800Trend: { screen: PV800Trend },
-    CCWGeneralPage: { screen: CCWGeneralPage },
-    DiagnosticPage: { screen: DiagnosticPage },
+    DataLogPV800:{screen:DataLogPV800},
+    GeneralPagePV800:{screen:GeneralPagePV800},
+    CCWGeneralPage:{screen: CCWGeneralPage},
+    DiagnosticPage:{screen:DiagnosticPage},
     SerialPortPage: {screen: SerialPortPage},
     ModbusPage: {screen: ModbusPage},
     UsbPage: {screen: UsbPage},
