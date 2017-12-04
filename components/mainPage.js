@@ -22,6 +22,7 @@ import CL450LGeneralPage from './450L/GeneralPage';
 import CL450LDiagnosePage from './450L/DiagnosePage';
 import FaultPage from './CR30/FaultPage';
 import PV800AlarmList from './PV800/AlarmList';
+import PV800Trend from './PV800/Trend';
 import CCWGeneralPage from './CCW/CCWGeneralPage'
 import DiagnosticPage from './CCW/DiagnosticPage'
 import SerialPortPage from './Common/SerialPortPage'
@@ -126,6 +127,7 @@ const MainPage = StackNavigator({
     CL450LDiagnosePage: { screen: CL450LDiagnosePage },
     DeviceAdd: { screen: DeviceAdd },
     PV800AlarmList: { screen: PV800AlarmList },
+    PV800Trend: { screen: PV800Trend },
     CCWGeneralPage: { screen: CCWGeneralPage },
     DiagnosticPage: { screen: DiagnosticPage },
     SerialPortPage: {screen: SerialPortPage},

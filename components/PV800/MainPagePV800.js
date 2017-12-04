@@ -29,7 +29,7 @@ class MainPagePV800 extends React.Component {
         this.state = {
             refreshing: false,
             showProgress: false,
-            itemsource: ["Alarm List"],
+            itemsource: ["Alarm List", "Trend"],
             configData: ""
         };
     }
@@ -73,6 +73,12 @@ class MainPagePV800 extends React.Component {
         const { navigate } = this.props.navigation;
         if ("Alarm List" == item)
             navigate('PV800AlarmList', { 
+                data: this.props.navigation.state.params.data, 
+                configData: this.state.configData,
+                proxy: this.props.navigation.state.params.proxy
+            });
+            else if ("Trend" == item)
+            navigate('PV800Trend', { 
                 data: this.props.navigation.state.params.data, 
                 configData: this.state.configData,
                 proxy: this.props.navigation.state.params.proxy
