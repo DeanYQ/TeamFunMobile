@@ -11,8 +11,6 @@ import {
     FlatList
 } from 'react-native';
 
-
-
 class SerialPortPage extends React.Component {
 
     constructor(props) {
@@ -30,6 +28,30 @@ class SerialPortPage extends React.Component {
     render() {
         return (
             <View style={{ flexDirection: 'column', backgroundColor: '#fff', paddingBottom: 300 }}>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Driver:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.SerialPort.Driver}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Baud Rate:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.SerialPort.BaudRate}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Parity:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.SerialPort.Parity}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Station Address:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.SerialPort.StationAddress}
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -41,35 +63,20 @@ var styles = StyleSheet.create({
         height: 80,
         backgroundColor: 'black'
     },
+    labelStyle: {
+        width: 170,
+        height: 30 ,
+        fontSize: 18,
+        fontWeight: 'bold',
+        paddingTop: 5,
+        marginLeft: 10
+    },
     textStyle: {
         width: 170,
-        height: 40,
-        paddingTop: 10,
-
-    },
-    input: {
-        height: 40,
-        padding: 4,
         fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#b8b894',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        flex: 2,
-        backgroundColor: 'white'
-
+        height: 30,
+        paddingTop: 5
     },
-    descriptionInput: {
-        height: 80,
-        fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#b8b894',
-        borderRadius: 5,
-        backgroundColor: 'white',
-        flex: 2
-    }
 });
 
 module.exports = SerialPortPage;

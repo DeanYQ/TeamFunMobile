@@ -42,7 +42,7 @@ class DeviceList extends Component {
 
     _signalrConnection() {
         this.setState({ signalrConnecting: true });
-
+        global.Signalr = Signalr;
         Signalr.connect(((callback, Id) => {
             this.setState({
                 signalrConnecting: false,

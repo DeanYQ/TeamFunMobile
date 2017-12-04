@@ -28,6 +28,36 @@ class UsbPage extends React.Component {
     render() {
         return (
             <View style={{ flexDirection: 'column', backgroundColor: '#fff', paddingBottom: 300 }}>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Status:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.Usb.Status}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Suspend State:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.Usb.SuspendState}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Bus Speed:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.Usb.BusSpeed}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>Mode:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.Usb.Mode}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row', margin: 10 }}>
+                    <Text style={styles.labelStyle}>State:</Text>
+                    <Text style={styles.textStyle}>
+                        {this.props.navigation.state.params.configData.Usb.State}
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -39,35 +69,20 @@ var styles = StyleSheet.create({
         height: 80,
         backgroundColor: 'black'
     },
+    labelStyle: {
+        width: 170,
+        height: 30,
+        fontSize: 18,
+        fontWeight: 'bold',
+        paddingTop: 5,
+        marginLeft: 10
+    },
     textStyle: {
         width: 170,
-        height: 40,
-        paddingTop: 10,
-
-    },
-    input: {
-        height: 40,
-        padding: 4,
         fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#b8b894',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        flex: 2,
-        backgroundColor: 'white'
-
+        height: 30,
+        paddingTop: 5
     },
-    descriptionInput: {
-        height: 80,
-        fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#b8b894',
-        borderRadius: 5,
-        backgroundColor: 'white',
-        flex: 2
-    }
 });
 
 module.exports = UsbPage;

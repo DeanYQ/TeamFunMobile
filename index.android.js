@@ -15,6 +15,7 @@ var Main = require('./Main');
 
 export default class MobileApplication extends Component {
   render() {
+    global.Signalr = null;
     return (
       <Main />
     );

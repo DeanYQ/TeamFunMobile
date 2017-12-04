@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import {
-    AppRegistry,
+    Platform,
     StyleSheet,
     Text,
-    View,
-    Image,
-    Button,
-    TextInput,
-    Alert,
-    FlatList
+    ScrollView,
+    View
 } from 'react-native';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
+const modbusData = [
+    ['Varialble1', 'BOOL', '000001'],
+    ['Varialble2', 'BOOL', '000002'],
+    ['Varialble3', 'BOOL', '000003'],
+    ['Varialble4', 'BOOL', '000004'],
+    ['Varialble5', 'BOOL', '000005'],
+ ];
 
 class ModBusPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            item: this.props.data
+            item: this.props.data,
+            modbusData: modbusData
         };
     }
     static navigationOptions = ({ navigation, screenProps }) => ({
@@ -26,47 +32,30 @@ class ModBusPage extends React.Component {
     });
 
     render() {
+        const tableHead = ['Name', 'Data Type', "Address"];
+
         return (
-            <View style={{ flexDirection: 'column', backgroundColor: '#fff', paddingBottom: 300 }}>
+            <View style={{ flex: 1 }}>
+                <Table>
+                    <Row data={tableHead} style={styles.head} flexArr={[2, 1]} textStyle={styles.headtext} />
+                </Table>
+                <ScrollView showsVerticalScrollIndicator={true} >
+                    <Table>
+                        <TableWrapper style={{ flexDirection: 'row' }}>
+                            <Rows data={this.state.modbusData} style={styles.row} flexArr={[2, 1]} textStyle={styles.rowtext} />
+                        </TableWrapper>
+                    </Table>
+                </ScrollView>
             </View>
         );
     }
 }
 
 var styles = StyleSheet.create({
-    header: {
-        height: 80,
-        backgroundColor: 'black'
-    },
-    textStyle: {
-        width: 170,
-        height: 40,
-        paddingTop: 10,
-
-    },
-    input: {
-        height: 40,
-        padding: 4,
-        fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#b8b894',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        flex: 2,
-        backgroundColor: 'white'
-
-    },
-    descriptionInput: {
-        height: 80,
-        fontSize: 18,
-        borderWidth: 1,
-        borderColor: '#b8b894',
-        borderRadius: 5,
-        backgroundColor: 'white',
-        flex: 2
-    }
+    head: { height: 40, backgroundColor: '#3c3c3c' },
+    headtext: { marginLeft: 5, color: '#fff', textAlign: 'center', fontWeight: 'bold' },
+    row: {   backgroundColor: '#550000', minHeight:30 },
+    rowtext: { marginLeft: 5, color: '#fff', textAlign: 'left' },
 });
 
 module.exports = ModBusPage;
