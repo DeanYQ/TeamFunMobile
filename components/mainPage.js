@@ -22,6 +22,8 @@ import CL450LGeneralPage from './450L/GeneralPage';
 import CL450LDiagnosePage from './450L/DiagnosePage';
 import FaultPage from './CR30/FaultPage';
 import PV800AlarmList from './PV800/AlarmList';
+import GeneralPagePV800 from './PV800/GeneralPagePV800';
+import DataLogPV800 from './PV800/DataLogPV800';
 import CCWGeneralPage from './CCW/CCWGeneralPage'
 import DiagnosticPage from './CCW/DiagnosticPage'
 const onButtonPress = () => {
@@ -122,6 +124,8 @@ const MainPage = StackNavigator({
     CL450LDiagnosePage:{screen:CL450LDiagnosePage},
     DeviceAdd: {screen: DeviceAdd},
     PV800AlarmList:{screen: PV800AlarmList},
+    DataLogPV800:{screen:DataLogPV800},
+    GeneralPagePV800:{screen:GeneralPagePV800},
     CCWGeneralPage:{screen: CCWGeneralPage},
     DiagnosticPage:{screen:DiagnosticPage}
 })
