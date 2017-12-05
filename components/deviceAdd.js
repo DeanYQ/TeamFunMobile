@@ -114,12 +114,16 @@ class DeviceAdd extends Component {
                 },
                 body: data
             })
-            .then((response) => {
-                this.setModalVisible(false);
-                Alert.alert("Success");
-                navigate("Home");
-            })
-            .done();
+                .then((response) => {
+                    this.setModalVisible(false);
+                    Alert.alert("Add new device","Success",
+                        [
+                            { text: 'OK', onPress: () => navigate("Home") },
+                        ],
+                        { cancelable: false });
+                    // navigate("Home");
+                })
+                .done();
         });
         //navigate("Home");
     }
