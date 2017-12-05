@@ -9,6 +9,7 @@ var Login = require('./components/Login/Login');
 // var AppContainer = require('./AppContainer');
 var AuthService = require('./AuthService');
 var MainPage = require('./components/mainPage.js');
+import SplashScreen from 'react-native-splash-screen'
 
 class Main extends Component {
     constructor(props) {
@@ -30,10 +31,11 @@ class Main extends Component {
                 checkingAuth: false,
                 authInfo: info,
                 isLoggedIn: info != null
-            })
+            });
+            SplashScreen.hide();
         });
     }
-    
+
     render() {
         if (this.state.isLoggedIn) {
             return (
@@ -42,11 +44,9 @@ class Main extends Component {
         }
         else {
             return (
-                // <View>
                 <Login onLogin={this.onLogin.bind(this)} />
             );
         }
-
     }
     onLogin() {
         console.log('successfully logged in, can show different view')
