@@ -88,9 +88,6 @@ class HomePage extends Component {
         navigate('DeviceAdd', { navigation: target.props.navigation });
     }
 
-
-
-
     render() {
         return (
             <View style={styles.container}>
@@ -116,21 +113,7 @@ class HomePage extends Component {
                         renderSelectedIcon={() => <Image style={[styles.icon, { tintColor: 'green' }]} source={require("../img/user.png")} />}
                         onPress={() => this.setState({ selectedTab: 'Me' })}>
                         <View>
-                            <Setting/>
-                            {/* <Text>Signalr.isConnected: {global.Signalr != null && global.Signalr.isConnected() ? "Connected" : "Disconnected"}</Text>
-                            <TouchableOpacity onPress={this.disconnect()}>
-                                <Text>"Disconnect"</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={this.connect()}>
-                                <Text>"Connect"</Text>
-                            </TouchableOpacity> */}
-                            {/* <TouchableHighlight onPress={global.Signalr != null && global.Signalr.isConnected() ?
-                                global.Signalr.disconnect() :
-                                global.Signalr.connect(() => { })}>
-                                <Text>
-                                    {global.Signalr != null && global.Signalr.isConnected() ? "Disconnect" : "Connect"}
-                                </Text>
-                            </TouchableHighlight> */}
+                            <Setting />
                         </View>
                     </TabNavigator.Item>
                 </TabNavigator>

@@ -6,7 +6,7 @@ import {
     View
 } from 'react-native';
 var Login = require('./components/Login/Login');
-// var AppContainer = require('./AppContainer');
+var AsyncStorage = require('react-native').AsyncStorage;
 var AuthService = require('./AuthService');
 var MainPage = require('./components/mainPage.js');
 import SplashScreen from 'react-native-splash-screen'
@@ -26,14 +26,40 @@ class Main extends Component {
         }
     }
     componentDidMount() {
-        AuthService.getAuthInfo((err, info) => {
-            this.setState({
-                checkingAuth: false,
-                authInfo: info,
-                isLoggedIn: info != null
-            });
-            SplashScreen.hide();
-        });
+        AsyncStorage.getItem('needLogin',(errs,result) => {
+            if (!errs) {
+                if (result !== null) {
+                    if (result === 'false') {
+                        AuthService.getAuthInfo((err, info) => {
+                            this.setState({
+                                checkingAuth: false,
+                                authInfo: info,
+                                isLoggedIn: info != null
+                            });
+                            SplashScreen.hide();
+                        });
+                    }else{
+                        SplashScreen.hide();
+                     }
+                }else{
+                    SplashScreen.hide();
+                 }
+             }
+             else{
+                SplashScreen.hide();
+             }
+        })
+        
+              
+
+        // AuthService.getAuthInfo((err, info) => {
+        //     this.setState({
+        //         checkingAuth: false,
+        //         authInfo: info,
+        //         isLoggedIn: info != null
+        //     });
+        //     SplashScreen.hide();
+        // });
     }
 
     render() {
