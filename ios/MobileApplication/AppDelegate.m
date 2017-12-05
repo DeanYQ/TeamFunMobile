@@ -11,6 +11,7 @@
 #import <RCTJPushModule.h>
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
+#import "SplashScreen.h"
 #endif
 
 #import <React/RCTBundleURLProvider.h>
@@ -40,6 +41,7 @@ JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  [SplashScreen show];
   return YES;
 }
 

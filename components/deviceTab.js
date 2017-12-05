@@ -110,7 +110,7 @@ class DeviceTab extends React.Component {
                     </ImageButton>
                 </View> */}
                 <View style={{ flex: 10 }}>
-                    <DeviceList itemsource={this.props.navigation.state.ds} onRefresh={this.requestDevices.bind(this)}
+                    <DeviceList style={{ flex: 1 }} itemsource={this.props.navigation.state.ds} onRefresh={this.requestDevices.bind(this)}
                         navigation={this.props.navigation} />
                 </View>
             </View>

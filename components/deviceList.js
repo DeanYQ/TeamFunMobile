@@ -36,12 +36,14 @@ class DeviceList extends Component {
     }
 
     componentDidMount() {
+        this.setState({ signalrConnecting: true });
         this._signalrConnection();
         this._onRefresh();
     }
 
     _signalrConnection() {
-        this.setState({ signalrConnecting: true });
+        this.setState({ signalrConnecting: true,
+        refreshing: true });
         global.Signalr = Signalr;
         Signalr.connect(((callback, Id) => {
             this.setState({
@@ -89,12 +91,12 @@ class DeviceList extends Component {
             return;
         if (this.state.refreshing)
             return;
+        this.setState({ refreshing: true });
         Signalr.DeleteDevice(this.state.proxy,
             this.state.clientId,
             item.Catalog.trim(),
             item.IP.trim(), () => {
                 console.log("device deleted");
-                this.setState({ refreshing: true });
                 this.props.onRefresh((response) => {
                     this.setState({
                         itemsource: null,
@@ -169,6 +171,7 @@ class DeviceList extends Component {
                             refreshing={this.state.refreshing || this.state.signalrConnecting}
                             onRefresh={this._pullRefresh.bind(this)}
                             colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
+                            tintColor={'#ff0000'}
                             progressBackgroundColor="#ffffff"
                         />}
 

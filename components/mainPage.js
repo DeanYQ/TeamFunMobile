@@ -62,7 +62,7 @@ class HomePage extends Component {
         return {
             title: 'Mobile Detector',
             headerStyle: { backgroundColor: '#960000', },
-            headerTitleStyle: { color: '#fff' },
+            headerTitleStyle: { color: '#fff', },
             headerRight: (
                 <ImageButton
                     style={{ backgroundColor: 'transparent', marginRight: 10 }}

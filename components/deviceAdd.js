@@ -12,9 +12,10 @@ import {
     Picker,
     Modal,
     TouchableHighlight,
-    ActivityIndicator
+    ActivityIndicator,
+    KeyboardAvoidingView
 } from 'react-native';
-
+import { NavigationActions } from 'react-navigation'
 import AuthService from '../AuthService';
 
 var items = ["Item 1", "Item 2"];
@@ -115,17 +116,27 @@ class DeviceAdd extends Component {
                 body: data
             })
                 .then((response) => {
-                    this.setModalVisible(false);
+                    
                     Alert.alert("Add new device","Success",
                         [
-                            { text: 'OK', onPress: () => navigate("Home") },
+                            { text: 'OK', onPress: () => {
+                                this.setModalVisible(false);
+                                const resetAction = NavigationActions.reset({
+                                index: 0,
+                                actions: [
+                                    NavigationActions.navigate({ routeName: 'Home' }),
+                                ]
+                                });
+                                                            
+                                this.props.navigation.dispatch(resetAction);
+                                // this.props.navigation.dispatch(NavigationActions.back());
+                                }
+                             },
                         ],
                         { cancelable: false });
-                    // navigate("Home");
                 })
                 .done();
         });
-        //navigate("Home");
     }
 
     render() {
@@ -158,7 +169,7 @@ class DeviceAdd extends Component {
 
         const { navigate } = this.props.navigation;
         return (
-            <View>
+            <KeyboardAvoidingView behavior="padding" style={styles.keyboardAvoidingView}>
                 <Modal
                     transparent={true}
                     visible={this.state.modalVisible}
@@ -193,7 +204,7 @@ class DeviceAdd extends Component {
                         style={{ height: 100 }}
                         color="#555555" />
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -249,5 +260,12 @@ var styles = StyleSheet.create({
         padding: 20,
         backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
+    keyboardAvoidingView: {
+	flex: 1,
+	backgroundColor:'white',
+	justifyContent: 'center',
+	paddingHorizontal: 20,
+	paddingTop: 20,
+  },
 });
 module.exports = DeviceAdd;
