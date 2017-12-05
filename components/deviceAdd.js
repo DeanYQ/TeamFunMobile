@@ -263,7 +263,7 @@ var styles = StyleSheet.create({
     keyboardAvoidingView: {
 	flex: 1,
 	backgroundColor:'white',
-	justifyContent: 'center',
+	justifyContent:'flex-start',
 	paddingHorizontal: 20,
 	paddingTop: 20,
   },
