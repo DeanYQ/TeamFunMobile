@@ -59,10 +59,10 @@ class Setting extends Component {
 
     render() {
         return (
-            <View>
-                <Text>Signalr.isConnected: {global.Signalr != null && global.Signalr.isConnected() ? "Connected" : "Disconnected"}</Text>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ flex: 1, flexDirection: 'column' }}>Always need login</Text>
+            <View style={{ marginLeft: 10 }}>
+                <Text style={{ fontSize: 20 }}>Server: {global.Signalr != null && global.Signalr.isConnected() ? "Connected" : "Disconnected"}</Text>
+                <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                    <Text style={{ flex: 1, flexDirection: 'column', fontSize: 20, }}>Always need login</Text>
                     <Switch
                         style={{ flex: 1, flexDirection: 'column' }}
                         buttonContent={this.state.needLogin ? "YES" : "NO"}
