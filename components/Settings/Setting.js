@@ -15,13 +15,17 @@ import {
 
 class Setting extends Component {
     connect() {
-        if (global.Signalr != null && global.Signalr.isConnected()) {
+        if (global.Signalr != null &&
+            global.Signalr.connection != null &&
+            !global.Signalr.isConnected()) {
             global.Signalr.connect(() => { });
         }
     }
 
     disconnect() {
-        if (global.Signalr != null && global.Signalr.isConnected()) {
+        if (global.Signalr != null && 
+            global.Signalr.connection != null &&
+            global.Signalr.isConnected()) {
             global.Signalr.disconnect();
         }
     }
@@ -29,10 +33,10 @@ class Setting extends Component {
         return (
             <View>
                 <Text>Signalr.isConnected: {global.Signalr != null && global.Signalr.isConnected() ? "Connected" : "Disconnected"}</Text>
-                <TouchableOpacity onPress={this.disconnect()}>
+                <TouchableOpacity onPress={_ => this.disconnect()}>
                     <Text>"Disconnect"</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.connect()}>
+                <TouchableOpacity onPress={_ => this.connect()}>
                     <Text>"Connect"</Text>
                 </TouchableOpacity>
             </View>

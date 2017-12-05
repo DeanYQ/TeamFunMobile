@@ -3,10 +3,11 @@ import signalr from 'react-native-signalr';
 const signalrUrl = 'http://mobileservices20171019105016.azurewebsites.net/';
 // static proxy;
 // static connection;
+let proxy;
+let connection;
 
 class DeviceSignalr {
-  static proxy;
-  static connection;
+
   isConnected() {
     return this.connection.logging;
   }
@@ -14,7 +15,7 @@ class DeviceSignalr {
   connect(cb) {
     //This is the server under /example/server published on azure.
     this.connection = signalr.hubConnection(signalrUrl);
-    this.connection.logging = true;
+    this.connection.logging = false;
 
     this.proxy = this.connection.createHubProxy('DeviceAdpterHub');
     this.proxy.on('AddMessage', (name, message) => {
@@ -64,9 +65,12 @@ class DeviceSignalr {
         if (response) {
           console.log('connected-to-adapter');
           console.log('before upload');
+          this.connection.logging = true;              
         }
         else {
           console.log('connected-to-adapter failed');
+          this.connection.logging = false;
+         
         }
         return response;
       }).fail(() => {

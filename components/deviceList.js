@@ -52,6 +52,13 @@ class DeviceList extends Component {
         }));
     }
 
+    _pullRefresh(){
+        if (!Signalr.isConnected())
+        {
+            this._signalrConnection();
+        }
+        this._onRefresh();
+    }
     _onRefresh() {
         this.setState({ refreshing: true });
 
@@ -160,7 +167,7 @@ class DeviceList extends Component {
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing || this.state.signalrConnecting}
-                            onRefresh={this._onRefresh.bind(this)}
+                            onRefresh={this._pullRefresh.bind(this)}
                             colors={['#ff0000', '#00ff00', '#0000ff', '#3ad564']}
                             progressBackgroundColor="#ffffff"
                         />}
