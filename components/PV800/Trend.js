@@ -118,7 +118,7 @@ class Trend extends Component {
                     style={{ flex: 1 }}
                     scale={{ x: "time" }}
                 >
-                    {/* <VictoryBar
+                    <VictoryBar
                         style={{
                             data: { fill: "#c43a31" },
                             parent: { border: "1px solid #ccc" },
@@ -131,21 +131,21 @@ class Trend extends Component {
                         data={this.state.TagValues}
                         labelComponent={<VictoryLabel />}
                         labels={(d) => d.y}
-                    /> */}
-                    <VictoryLine
+                    />
+                    {/* <VictoryLine
                         style={{
                             data: { border: "1px solid #ccc" },
                             // parent: { border: "1px solid #ccc" },
-                            labels: { fill: "black", fontWeight: 'bold' }
+                            // labels: { fill: "black", fontWeight: 'bold' }
                         }}
                         animate={{
                             duration: 1500,
                             onLoad: { duration: 1500 }
                         }}
                         data={this.state.TagValues}
-                        labelComponent={<VictoryLabel />}
-                        labels={(d) => d.y}
-                    />
+                    // labelComponent={<VictoryLabel />}
+                    // labels={(d) => d.y}
+                    /> */}
                 </VictoryChart>
             </View>
         )
