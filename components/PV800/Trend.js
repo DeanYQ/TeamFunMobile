@@ -34,6 +34,7 @@ class Trend extends Component {
             responseData: null,
             TagValues: this.formatData(props.navigation.state.params.configData.TagList[0].Info),
             DateTimes: this.getDate(props.navigation.state.params.configData.TagList[0].Info),
+            DateTime: null,            
             TagName: props.navigation.state.params.configData.TagList[0].Name
         };
     }
@@ -54,6 +55,12 @@ class Trend extends Component {
             var year = arr[i]["Date"].substring(4, 8);
             var month = arr[i]["Date"].substring(0, 2);
             var day = arr[i]["Date"].substring(2, 4);
+            if (i === 1)
+            {
+                this.setState({
+                    DateTime: new Date(year, month, day, hour, minute, second)
+                });
+            }
             var row = {
                 // x: new Date(year,month,day,hour,minute,second),
                 x: new Date(year, month, day, hour, minute, second),
@@ -118,6 +125,13 @@ class Trend extends Component {
                     style={{ flex: 1 }}
                     scale={{ x: "time" }}
                 >
+                    {/* <VictoryAxis
+                        label={this.state.DateTime}
+                        style={{
+                            axisLabel: { fontSize: 20, padding: 30 },
+                            // tickLabels: { fontSize: 15, padding: 5 }
+                        }}
+                    /> */}
                     <VictoryBar
                         style={{
                             data: { fill: "#c43a31" },
@@ -132,7 +146,7 @@ class Trend extends Component {
                         labelComponent={<VictoryLabel />}
                         labels={(d) => d.y}
                     />
-                    {/* <VictoryLine
+                    <VictoryLine
                         style={{
                             data: { border: "1px solid #ccc" },
                             // parent: { border: "1px solid #ccc" },
@@ -145,7 +159,7 @@ class Trend extends Component {
                         data={this.state.TagValues}
                     // labelComponent={<VictoryLabel />}
                     // labels={(d) => d.y}
-                    /> */}
+                    />
                 </VictoryChart>
             </View>
         )
