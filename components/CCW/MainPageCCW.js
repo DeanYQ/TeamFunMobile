@@ -80,7 +80,7 @@ class MainPageCCW extends React.Component {
     _renderItem = ({ item }) => (
         <TouchableHighlight onPress={_ => this.pressItem(item)}
             disabled={this.state.showProgress}>
-            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1, borderTopWidth: 1 }}>
+            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
                 <View style={{ paddingLeft: 20 }}>
                     <Text style={{ fontSize: 20 }}>
                         {item}
@@ -100,6 +100,7 @@ class MainPageCCW extends React.Component {
                 </ActivityIndicator>
                 <View style={{ flex: 10, flexDirection: 'row', margin: 10 }}>
                     <AnimatedFlatList
+                        style={{ borderColor: '#D7D7D7', borderTopWidth: 1 }}
                         // refreshControl={
                         //     <RefreshControl
                         //         refreshing={this.state.refreshing}
