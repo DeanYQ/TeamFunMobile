@@ -40,11 +40,11 @@ class DataLogPV800 extends Component {
             <TouchableOpacity >
                         <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center', backgroundColor: '#fff', borderColor: '#D7D7D7', borderBottomWidth: 1 }}>
                             <View>
-                             <Text style={{ height: 50, width: 100, margin: 5,fontSize:25 }} >
+                             <Text style={{ height: 50, width: 100, margin: 5,fontSize:30,marginLeft: 50,fontColor:'red' }} >
                                     {item.Value}
                                 </Text>
                                 </View>
-                            <View style={{ paddingLeft: 20 }}>
+                            <View style={{ paddingLeft: 20,marginLeft:20 }}>
                                 <Text style={{ fontSize: 20 }}>
                                     Time:{item.Time}
                                 </Text>
