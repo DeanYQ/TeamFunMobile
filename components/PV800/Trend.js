@@ -12,10 +12,8 @@ import {
     ScrollView,
     View
 } from 'react-native';
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import Signalr from '../Signalr/deviceSignalr.js';
-// import { LineChart, YAxis, BarChart, XAxis } from 'react-native-svg-charts';
-// import * as shape from 'd3-shape';
+
 import {
     VictoryChart,
     VictoryLine,
