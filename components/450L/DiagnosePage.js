@@ -49,7 +49,7 @@ class DiagnosePage extends React.Component {
         this.state = {
             First: 0,
             Last: 0,
-            Total: 100,
+            Total: this.props.navigation.state.params.configData.General.Total,
             diagnoseData: null,
             table: this.initData()
         };
@@ -78,12 +78,12 @@ class DiagnosePage extends React.Component {
 
     initData() {
         var data = new Array();
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 3; i++) {
             var row = {
                 x: new Date(),
                 open: 0,
                 close: 0,
-                high: 100,
+                high: this.props.navigation.state.params.configData.General.Total,
                 low: 0
             };
             data.push(row);
