@@ -12,17 +12,27 @@ import {
     ScrollView,
     View
 } from 'react-native';
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import Signalr from '../Signalr/deviceSignalr.js';
-import { LineChart, YAxis, BarChart, XAxis } from 'react-native-svg-charts';
-import * as shape from 'd3-shape';
 
+import {
+    VictoryChart,
+    VictoryLine,
+    VictoryTheme,
+    VictoryAxis,
+    VictoryBar,
+    VictoryTooltip,
+    VictoryLabel,
+    VictoryZoomContainer
+} from "victory-native";
+import Svg from 'react-native-svg';
 class Trend extends Component {
     constructor(props) {
         super(props);
         this.state = {
             responseData: null,
-            TagValues: props.navigation.state.params.configData.TagList[0].Info,
+            TagValues: this.formatData(props.navigation.state.params.configData.TagList[0].Info),
+            DateTimes: this.getDate(props.navigation.state.params.configData.TagList[0].Info),
+            DateTime: null,            
             TagName: props.navigation.state.params.configData.TagList[0].Name
         };
     }
@@ -34,11 +44,46 @@ class Trend extends Component {
 
     });
 
-    findElements(arr, propName, times) {
+    formatData(arr) {
+        var data = new Array();
+        for (var i = 0; i < arr.length; i++) {
+            var hour = arr[i]["Time"].substring(0, 2);
+            var minute = arr[i]["Time"].substring(3, 5);
+            var second = arr[i]["Time"].substring(6, 8);
+            var year = arr[i]["Date"].substring(4, 8);
+            var month = arr[i]["Date"].substring(0, 2);
+            var day = arr[i]["Date"].substring(2, 4);
+            if (i === 1)
+            {
+                this.setState({
+                    DateTime: new Date(year, month, day, hour, minute, second)
+                });
+            }
+            var row = {
+                // x: new Date(year,month,day,hour,minute,second),
+                x: new Date(year, month, day, hour, minute, second),
+                y: parseInt(arr[i]["Value"]),
+                // labels: new Date(year, month, day, hour, minute, second),
+            };
+            data.push(row);
+        }
+        return data;
+    }
+
+    getDate(arr) {
+        var data = [];
+        data.push("");
+        for (var i = 0; i < arr.length; i++) {
+            data.push(arr[i]["Date"] + " " + arr[i]["Time"]);
+        }
+        return data;
+    }
+
+    findElements(arr, propName) {
         var values = [];
         for (var i = 0; i < arr.length; i++) {
             if (times > 0) {
-                values.push(arr[i][propName] * times);
+                values.push(arr[i][propName]);
             }
             else {
                 values.push(arr[i][propName]);
@@ -67,77 +112,56 @@ class Trend extends Component {
 
 
     render() {
-        const contentInset = { top: 20, bottom: 20 }
-        var data = this.findElements(this.state.TagValues, "Value", 100);
-        var time = this.findElements(this.state.TagValues, "Time", 0);
-        var date = this.findElements(this.state.TagValues, "Date", 0);
+        // const contentInset = { top: 20, bottom: 20 }
+        // var data = this.findElements(this.state.TagValues, "Value", 1);
+        // var time = this.findElements(this.state.TagValues, "Time", 0);
+        // var date = this.findElements(this.state.TagValues, "Date", 0);
 
         return (
-            <View style={{ flex: 1, marginLeft: 20, marginRight: 20 }}>
-                {/* <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', marginTop: 10 }}>{this.state.TagName}</Text> */}
-                <View style={{ flex: 10, height: 300, flexDirection: 'row' }}>
-                    <YAxis
-                        dataPoints={data}
-                        contentInset={contentInset}
-                        labelStyle={{ color: 'grey' }}
-                        formatLabel={value => `${value / 100}`}
-                    />
-                    <LineChart
-                        style={{ flex: 1, marginLeft: 10 }}
-                        dataPoints={data}
-                        fillColor={'purple'}
-                        // strokeColor={'rgb(134, 65, 244)'}
-                        strokeColor={'blue'}
-                        shadowColor={'rgba(134, 65, 244, 0.2)'}
-                        contentInset={contentInset}
-                        curve={shape.curveLinear}
-                    />
-                </View>
-                <View style={{ flex: 1 }}>
-                    <XAxis
-                        style={{ flex: 1 }}
-                        values={time}
-                        formatLabel={(value, index) => value}
-                        chartType={XAxis.Type.LINE}
-                        labelStyle={{
-                            flex: 1, color: 'grey',
-                            fontSize: 8
+            <View style={{ flex: 1 }}>
+                <VictoryChart theme={VictoryTheme.material}
+                    style={{ flex: 1 }}
+                    scale={{ x: "time" }}
+                >
+                    {/* <VictoryAxis
+                        label={this.state.DateTime}
+                        style={{
+                            axisLabel: { fontSize: 20, padding: 30 },
+                            // tickLabels: { fontSize: 15, padding: 5 }
                         }}
-                    />
-                    <XAxis
-                        style={{ flex: 1, marginTop: -20 }}
-                        values={date}
-                        formatLabel={(value, index) => value}
-                        chartType={XAxis.Type.LINE}
-                        labelStyle={{
-                            flex: 1, color: 'grey',
-                            fontSize: 5,
-                            textAlign: 'left'
+                    /> */}
+                    <VictoryBar
+                        style={{
+                            data: { fill: "#c43a31" },
+                            parent: { border: "1px solid #ccc" },
+                            labels: { fill: "black", fontWeight: 'bold' }
                         }}
+                        animate={{
+                            duration: 1500,
+                            onLoad: { duration: 1500 }
+                        }}
+                        data={this.state.TagValues}
+                        labelComponent={<VictoryLabel />}
+                        labels={(d) => d.y}
                     />
-                </View>
+                    <VictoryLine
+                        style={{
+                            data: { border: "1px solid #ccc" },
+                            // parent: { border: "1px solid #ccc" },
+                            // labels: { fill: "black", fontWeight: 'bold' }
+                        }}
+                        animate={{
+                            duration: 1500,
+                            onLoad: { duration: 1500 }
+                        }}
+                        data={this.state.TagValues}
+                    // labelComponent={<VictoryLabel />}
+                    // labels={(d) => d.y}
+                    />
+                </VictoryChart>
             </View>
         )
     }
-    // render() {
-    //     const tableHead = ['Alarm Message', 'Ack Status'];
-
-
-    //     return (
-    //         <View style={{ flex: 1 }}>
-    //             <Table>
-    //                 <Row data={tableHead} style={styles.head} flexArr={[2, 1]} textStyle={styles.headtext} />
-    //             </Table>
-    //             <ScrollView showsVerticalScrollIndicator={true} >
-    //                 <Table>
-    //                     <TableWrapper style={{ flexDirection: 'row' }}>
-    //                         <Rows data={this.state.alarms} style={styles.row} flexArr={[2, 1]} textStyle={styles.rowtext} />
-    //                     </TableWrapper>
-    //                 </Table>
-    //             </ScrollView>
-    //         </View>
-    //     )
-    // }
 }
 
 const styles = StyleSheet.create({

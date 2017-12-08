@@ -42,6 +42,9 @@ class Main extends Component {
                         SplashScreen.hide();
                      }
                 }else{
+                    AsyncStorage.setItem('needLogin', 'true', (err, result) => {
+                        console.log(result);
+                    });
                     SplashScreen.hide();
                  }
              }

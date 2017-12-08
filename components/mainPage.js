@@ -9,7 +9,9 @@ import {
     Button,
     Alert,
     TouchableHighlight,
-    TouchableOpacity
+    TouchableOpacity,
+    Animated,
+    Easing
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator'
@@ -33,21 +35,6 @@ import SerialPortPage from './Common/SerialPortPage'
 import ModbusPage from './Common/ModBus'
 import UsbPage from './Common/UsbPage'
 import Signalr from './Signalr/deviceSignalr';
-const onButtonPress = () => {
-    //Alert.alert('Button has been pressed!');
-
-    //let response = await fetch('http://192.168.1.105:8088/api/getuser?name=dean');
-    fetch('http://192.168.1.105:8088/api/getuser?name=dean')
-        .then((response) => {
-            if (response.ok) {
-                return response.text();
-            }
-        })
-        .then((responseText) => {
-            Alert.alert(responseText);
-        })
-        .done();
-};
 
 class HomePage extends Component {
     constructor(props) {
@@ -69,9 +56,6 @@ class HomePage extends Component {
                     imageStyle={{ width: 25, height: 25 }}
                     imageSource={require('../img/searchAdd.png')}
                     onPress={() => {
-                        //Alert.alert(this.state.message);
-                        //const { navigate } = this.props.navigation;
-                        //navigate('DeviceAdd', {navigation: this.props.navigation});
                         params.deviceNavigate(params.target);
                     }}>
                 </ImageButton>
@@ -121,24 +105,56 @@ class HomePage extends Component {
         );
     }
 }
-const MainPage = StackNavigator({
-    Home: { screen: HomePage },
-    Detail: { screen: DeviceDetailPage },
-    CR30GeneralPage: { screen: GeneralPage },
-    CR30FaultPage: { screen: FaultPage },
-    CL450LGeneralPage: { screen: CL450LGeneralPage },
-    CL450LDiagnosePage: { screen: CL450LDiagnosePage },
-    DeviceAdd: { screen: DeviceAdd },
-    PV800AlarmList: { screen: PV800AlarmList },
-    PV800Trend: { screen: PV800Trend },
-    DataLogPV800: { screen: DataLogPV800 },
-    GeneralPagePV800: { screen: GeneralPagePV800 },
-    CCWGeneralPage: { screen: CCWGeneralPage },
-    DiagnosticPage: { screen: DiagnosticPage },
-    SerialPortPage: { screen: SerialPortPage },
-    ModbusPage: { screen: ModbusPage },
-    UsbPage: { screen: UsbPage },
-})
+const MainPage = StackNavigator(
+    {
+        Home: { screen: HomePage },
+        Detail: { screen: DeviceDetailPage },
+        CR30GeneralPage: { screen: GeneralPage },
+        CR30FaultPage: { screen: FaultPage },
+        CL450LGeneralPage: { screen: CL450LGeneralPage },
+        CL450LDiagnosePage: { screen: CL450LDiagnosePage },
+        DeviceAdd: { screen: DeviceAdd },
+        PV800AlarmList: { screen: PV800AlarmList },
+        PV800Trend: { screen: PV800Trend },
+        DataLogPV800: { screen: DataLogPV800 },
+        GeneralPagePV800: { screen: GeneralPagePV800 },
+        CCWGeneralPage: { screen: CCWGeneralPage },
+        DiagnosticPage: { screen: DiagnosticPage },
+        SerialPortPage: { screen: SerialPortPage },
+        ModbusPage: { screen: ModbusPage },
+        UsbPage: { screen: UsbPage },
+    },
+    {
+        mode: 'modal',
+        headerMode: 'float',
+        navigationOptions: {
+            gesturesEnabled: true,
+        },
+        transitionConfig: () => ({
+            transitionSpec: {
+                duration: 300,
+                easing: Easing.out(Easing.poly(4)),
+                timing: Animated.timing,
+            },
+            screenInterpolator: sceneProps => {
+                const { layout, position, scene } = sceneProps;
+                const { index } = scene;
+
+                const height = layout.initHeight;
+                const translateY = position.interpolate({
+                    inputRange: [index - 1, index, index + 1],
+                    outputRange: [height, 0, 0],
+                });
+
+                const opacity = position.interpolate({
+                    inputRange: [index - 1, index - 0.99, index],
+                    outputRange: [0, 1, 1],
+                });
+
+                return { opacity, transform: [{ translateY }] };
+            },
+        }),
+    });
 
 const styles = StyleSheet.create({
     container: {
@@ -166,5 +182,4 @@ const styles = StyleSheet.create({
     }
 });
 
-//AppRegistry.registerComponent('Login', () => Login);
 module.exports = MainPage
