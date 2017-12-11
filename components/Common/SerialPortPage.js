@@ -27,7 +27,7 @@ class SerialPortPage extends React.Component {
 
     render() {
         return (
-            <View style={{ flexDirection: 'column', backgroundColor: '#fff', paddingBottom: 300 }}>
+            <View style={{ flexDirection: 'column', backgroundColor: '#fff', height: '100%'}}>
                 <View style={{ flexDirection: 'row', margin: 10 }}>
                     <Text style={styles.labelStyle}>Driver:</Text>
                     <Text style={styles.textStyle}>
